@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Herencia de la vista formulario -->
+        <record id="view_product_template_form_inherit" model="ir.ui.view">
+            <field name="name">product.template.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">             
+
+                <notebook position="inside">
+                    <page string="Detalles Adicionales" name="custom_details">
+                        <group string="Detalles Adicionales">
+                            <group>
+                                <field name="flex_code"/>
+                                <field name="brand"/>
+                            </group>
+
+                            <group>
+                                <field name="net_weight"/>
+                                <field name="net_volume"/>
+
+                                <field name="gross_weight"/>
+                                <field name="gross_volume"/>                          
+                            </group>
+
+                             <group string="SIAT HOLOGACIÓN" invisible="sale_ok != True">
+                                <field name="unidad_medida_siat"/>
+                                <field name="description_unidad_medida_siat"/>
+                    
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+       
+    </data>
+</odoo>
