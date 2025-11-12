@@ -4,6 +4,7 @@ from odoo import api, fields, models, _
 import re
 
 
+
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
@@ -22,7 +23,8 @@ class ProductTemplate(models.Model):
     unidad_medida_siat = fields.Float(string="Unidad de Medida SIAT", help="Unidad de medida según SIAT.")
     description_unidad_medida_siat = fields.Char(string="Descripción Unidad de Medida SIAT", help="Descripción de la unidad de medida según SIAT.")
     
-
+    product_line_product = fields.Many2one('product.details', string="Producto", help="Producto.")
+    product_line_group = fields.Many2one('group.details', string="Grupo", help="Grupo.")
 
     @api.onchange('categ_id')
     def _onchange_category_code(self):

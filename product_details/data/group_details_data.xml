@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Carga inicial de group.details -->
+        <record id="group_details_01" model="group.details">
+            <field name="name">AZUCAR</field>
+            <field name="description">AZUCAR</field>
+        </record>
+        <record id="group_details_02" model="group.details">
+            <field name="name">SALSAS ESPECIALES</field>
+            <field name="description">SALSAS ESPECIALES</field>
+        </record>
+        <record id="group_details_03" model="group.details">
+            <field name="name">ENCURTIDOS</field>
+            <field name="description">ENCURTIDOS</field>
+        </record>
+        <record id="group_details_04" model="group.details">
+            <field name="name">DIPS</field>
+            <field name="description">DIPS</field>
+        </record>
+        <record id="group_details_05" model="group.details">
+            <field name="name">KETCHUP</field>
+            <field name="description">KETCHUP</field>
+        </record>
+        <record id="group_details_06" model="group.details">
+            <field name="name">MAYONESA</field>
+            <field name="description">MAYONESA</field>
+        </record>
+        <record id="group_details_07" model="group.details">
+            <field name="name">MOSTAZA</field>
+            <field name="description">MOSTAZA</field>
+        </record>
+        <record id="group_details_08" model="group.details">
+            <field name="name">REFRESCO</field>
+            <field name="description">REFRESCO</field>
+        </record>
+        <record id="group_details_09" model="group.details">
+            <field name="name">INGREDIENTES</field>
+            <field name="description">INGREDIENTES</field>
+        </record>
+        <record id="group_details_10" model="group.details">
+            <field name="name">VINAGRE</field>
+            <field name="description">VINAGRE</field>
+        </record>
+    </data>
+</odoo>

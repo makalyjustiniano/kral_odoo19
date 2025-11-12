@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Carga inicial de product.details -->
+        <record id="product_detail_001" model="product.details">
+            <field name="name">AZUCAR INVERTIDA</field>
+            <field name="description">AZUCAR INVERTIDA</field>
+        </record>
+        <record id="product_detail_002" model="product.details">
+            <field name="name">SUGAR CARAMELO</field>
+            <field name="description">SUGAR CARAMELO</field>
+        </record>
+        <record id="product_detail_003" model="product.details">
+            <field name="name">BARBACOA BRIXY</field>
+            <field name="description">BARBACOA BRIXY</field>
+        </record>
+        <record id="product_detail_004" model="product.details">
+            <field name="name">BARBACOA COPACABANA 2</field>
+            <field name="description">BARBACOA COPACABANA 2</field>
+        </record>
+        <record id="product_detail_005" model="product.details">
+            <field name="name">BARBACOA COPACABANA</field>
+            <field name="description">BARBACOA COPACABANA</field>
+        </record>
+        <record id="product_detail_006" model="product.details">
+            <field name="name">CHALAMADA</field>
+            <field name="description">CHALAMADA</field>
+        </record>
+        <record id="product_detail_007" model="product.details">
+            <field name="name">CHUCRUT</field>
+            <field name="description">CHUCRUT</field>
+        </record>
+        <record id="product_detail_008" model="product.details">
+            <field name="name">DIP CEBOLLA FRANCESA</field>
+            <field name="description">DIP CEBOLLA FRANCESA</field>
+        </record>
+        <record id="product_detail_009" model="product.details">
+            <field name="name">DIP QUESO</field>
+            <field name="description">DIP QUESO</field>
+        </record>
+        <record id="product_detail_010" model="product.details">
+            <field name="name">DIP QUESO Y JALAPEÑO</field>
+            <field name="description">DIP QUESO Y JALAPEÑO</field>
+        </record>
+        <record id="product_detail_011" model="product.details">
+            <field name="name">DIP RANCH</field>
+            <field name="description">DIP RANCH</field>
+        </record>
+        <record id="product_detail_012" model="product.details">
+            <field name="name">CAESAR</field>
+            <field name="description">CAESAR</field>
+        </record>
+        <record id="product_detail_013" model="product.details">
+            <field name="name">ITALIAN</field>
+            <field name="description">ITALIAN</field>
+        </record>
+        <record id="product_detail_014" model="product.details">
+            <field name="name">RANCH</field>
+            <field name="description">RANCH</field>
+        </record>
+        <record id="product_detail_015" model="product.details">
+            <field name="name">SALSA FRENCH</field>
+            <field name="description">SALSA FRENCH</field>
+        </record>
+        <record id="product_detail_016" model="product.details">
+            <field name="name">SALSA TARTARA</field>
+            <field name="description">SALSA TARTARA</field>
+        </record>
+        <record id="product_detail_017" model="product.details">
+            <field name="name">SALSA INGLESA / WORCESTERSHIRE</field>
+            <field name="description">SALSA INGLESA / WORCESTERSHIRE</field>
+        </record>
+        <record id="product_detail_018" model="product.details">
+            <field name="name">SALSA QUESO BRIXY</field>
+            <field name="description">SALSA QUESO BRIXY</field>
+        </record>
+        <record id="product_detail_019" model="product.details">
+            <field name="name">GOLF BRIXY</field>
+            <field name="description">GOLF BRIXY</field>
+        </record>
+        <record id="product_detail_020" model="product.details">
+            <field name="name">GOLF GOLDEN</field>
+            <field name="description">GOLF GOLDEN</field>
+        </record>
+        <record id="product_detail_021" model="product.details">
+            <field name="name">SALSA STACKER</field>
+            <field name="description">SALSA STACKER</field>
+        </record>
+        <record id="product_detail_022" model="product.details">
+            <field name="name">JALAPEÑO</field>
+            <field name="description">JALAPEÑO</field>
+        </record>
+        <record id="product_detail_025" model="product.details">
+            <field name="name">KETCHUP</field>
+            <field name="description">KETCHUP</field>
+        </record>
+        <record id="product_detail_026" model="product.details">
+            <field name="name">KETCHUP GOL</field>
+            <field name="description">KETCHUP GOL</field>
+        </record>
+        <record id="product_detail_028" model="product.details">
+            <field name="name">KETCHUP TIPO AMERICANO</field>
+            <field name="description">KETCHUP TIPO AMERICANO</field>
+        </record>
+        <record id="product_detail_029" model="product.details">
+            <field name="name">KETCHUP TOBY</field>
+            <field name="description">KETCHUP TOBY</field>
+        </record>
+        <record id="product_detail_030" model="product.details">
+            <field name="name">MAYONESA</field>
+            <field name="description">MAYONESA</field>
+        </record>
+        <record id="product_detail_031" model="product.details">
+            <field name="name">MAYONESA GOL</field>
+            <field name="description">MAYONESA GOL</field>
+        </record>
+        <record id="product_detail_032" model="product.details">
+            <field name="name">MIEL Y MOST.COPACABANA</field>
+            <field name="description">MIEL Y MOST.COPACABANA</field>
+        </record>
+        <record id="product_detail_033" model="product.details">
+            <field name="name">MOST.MIEL BRIXY</field>
+            <field name="description">MOST.MIEL BRIXY</field>
+        </record>
+        <record id="product_detail_034" model="product.details">
+            <field name="name">MOSTAZA</field>
+            <field name="description">MOSTAZA</field>
+        </record>
+        <record id="product_detail_035" model="product.details">
+            <field name="name">MOSTAZA ESPECIAL</field>
+            <field name="description">MOSTAZA ESPECIAL</field>
+        </record>
+        <record id="product_detail_036" model="product.details">
+            <field name="name">PEPINILLO AMERICANO</field>
+            <field name="description">PEPINILLO AMERICANO</field>
+        </record>
+        <record id="product_detail_037" model="product.details">
+            <field name="name">PEPINILLO BASTONES</field>
+            <field name="description">PEPINILLO BASTONES</field>
+        </record>
+        <record id="product_detail_038" model="product.details">
+            <field name="name">PEPINILLO FERMENTADO 8%</field>
+            <field name="description">PEPINILLO FERMENTADO 8%</field>
+        </record>
+        <record id="product_detail_039" model="product.details">
+            <field name="name">PEPINILLO AGRIDULCE</field>
+            <field name="description">PEPINILLO AGRIDULCE</field>
+        </record>
+        <record id="product_detail_041" model="product.details">
+            <field name="name">PEPINILLO ACIDO</field>
+            <field name="description">PEPINILLO ACIDO</field>
+        </record>
+        <record id="product_detail_043" model="product.details">
+            <field name="name">AJI FERMENTADO</field>
+            <field name="description">AJI FERMENTADO</field>
+        </record>
+        <record id="product_detail_044" model="product.details">
+            <field name="name">CREMA DE AJI</field>
+            <field name="description">CREMA DE AJI</field>
+        </record>
+        <record id="product_detail_045" model="product.details">
+            <field name="name">JALAPEÑO FERMENTADO</field>
+            <field name="description">JALAPEÑO FERMENTADO</field>
+        </record>
+        <record id="product_detail_046" model="product.details">
+            <field name="name">LLAJUA CHURRASQUERA</field>
+            <field name="description">LLAJUA CHURRASQUERA</field>
+        </record>
+        <record id="product_detail_047" model="product.details">
+            <field name="name">LLAJUA</field>
+            <field name="description">LLAJUA</field>
+        </record>
+        <record id="product_detail_048" model="product.details">
+            <field name="name">LLAJUA VERDE</field>
+            <field name="description">LLAJUA VERDE</field>
+        </record>
+        <record id="product_detail_049" model="product.details">
+            <field name="name">PICANTE</field>
+            <field name="description">PICANTE</field>
+        </record>
+        <record id="product_detail_050" model="product.details">
+            <field name="name">SALSA LOUISIANA</field>
+            <field name="description">SALSA LOUISIANA</field>
+        </record>
+        <record id="product_detail_051" model="product.details">
+            <field name="name">SALSA TAQUERA/NACHO</field>
+            <field name="description">SALSA TAQUERA/NACHO</field>
+        </record>
+        <record id="product_detail_052" model="product.details">
+            <field name="name">PAPRIKA</field>
+            <field name="description">PAPRIKA</field>
+        </record>
+        <record id="product_detail_053" model="product.details">
+            <field name="name">REFRESCO CEREZA</field>
+            <field name="description">REFRESCO CEREZA</field>
+        </record>
+        <record id="product_detail_054" model="product.details">
+            <field name="name">REFRESCO FRUTILLA</field>
+            <field name="description">REFRESCO FRUTILLA</field>
+        </record>
+        <record id="product_detail_055" model="product.details">
+            <field name="name">REFRESCO LIMON</field>
+            <field name="description">REFRESCO LIMON</field>
+        </record>
+        <record id="product_detail_056" model="product.details">
+            <field name="name">REFRESCO MARACUYA</field>
+            <field name="description">REFRESCO MARACUYA</field>
+        </record>
+        <record id="product_detail_057" model="product.details">
+            <field name="name">REFRESCO NARANJA</field>
+            <field name="description">REFRESCO NARANJA</field>
+        </record>
+        <record id="product_detail_058" model="product.details">
+            <field name="name">REFRESCO PIÑA</field>
+            <field name="description">REFRESCO PIÑA</field>
+        </record>
+        <record id="product_detail_059" model="product.details">
+            <field name="name">REFRESCO POMELO</field>
+            <field name="description">REFRESCO POMELO</field>
+        </record>
+        <record id="product_detail_060" model="product.details">
+            <field name="name">EXTRACTO DE TOMATE</field>
+            <field name="description">EXTRACTO DE TOMATE</field>
+        </record>
+        <record id="product_detail_061" model="product.details">
+            <field name="name">PASTA DE TOMATE</field>
+            <field name="description">PASTA DE TOMATE</field>
+        </record>
+        <record id="product_detail_062" model="product.details">
+            <field name="name">SALSA PIZZA BRIXY</field>
+            <field name="description">SALSA PIZZA BRIXY</field>
+        </record>
+        <record id="product_detail_063" model="product.details">
+            <field name="name">SALSA PIZZA ELIS</field>
+            <field name="description">SALSA PIZZA ELIS</field>
+        </record>
+        <record id="product_detail_064" model="product.details">
+            <field name="name">VINAGRE ACIDO BALDES</field>
+            <field name="description">VINAGRE ACIDO BALDES</field>
+        </record>
+        <record id="product_detail_065" model="product.details">
+            <field name="name">VINAGRE AGRIDULCE FRASCOS</field>
+            <field name="description">VINAGRE AGRIDULCE FRASCOS</field>
+        </record>
+        <record id="product_detail_066" model="product.details">
+            <field name="name">VINAGRE AGRIDULCE SIN COLORANT</field>
+            <field name="description">VINAGRE AGRIDULCE SIN COLORANT</field>
+        </record>
+        <record id="product_detail_067" model="product.details">
+            <field name="name">VINAGRE BLANCO 4%</field>
+            <field name="description">VINAGRE BLANCO 4%</field>
+        </record>
+        <record id="product_detail_068" model="product.details">
+            <field name="name">VINAGRE DE ALCOHOL 5%</field>
+            <field name="description">VINAGRE DE ALCOHOL 5%</field>
+        </record>
+        <record id="product_detail_069" model="product.details">
+            <field name="name">VINAGRE MADRE DE ALCOHOL</field>
+            <field name="description">VINAGRE MADRE DE ALCOHOL</field>
+        </record>
+        <record id="product_detail_070" model="product.details">
+            <field name="name">VINAGRE MADRE DE VINO</field>
+            <field name="description">VINAGRE MADRE DE VINO</field>
+        </record>
+        <record id="product_detail_071" model="product.details">
+            <field name="name">VINAGRE PEPINILLO AMERICANO</field>
+            <field name="description">VINAGRE PEPINILLO AMERICANO</field>
+        </record>
+        <record id="product_detail_072" model="product.details">
+            <field name="name">VINAGRE PRODUCCION 10%</field>
+            <field name="description">VINAGRE PRODUCCION 10%</field>
+        </record>
+        <record id="product_detail_073" model="product.details">
+            <field name="name">VINAGRE TINTO 4%</field>
+            <field name="description">VINAGRE TINTO 4%</field>
+        </record>
+        <record id="product_detail_074" model="product.details">
+            <field name="name">VINAGRE MANZANA ELABORADO</field>
+            <field name="description">VINAGRE MANZANA ELABORADO</field>
+        </record>
+        <record id="product_detail_075" model="product.details">
+            <field name="name">VINAGRE MADRE DE MANZANA</field>
+            <field name="description">VINAGRE MADRE DE MANZANA</field>
+        </record>
+    </data>
+</odoo>

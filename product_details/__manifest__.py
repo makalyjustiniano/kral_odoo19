@@ -11,6 +11,9 @@
     "website": "https://kral.com.bo",
     "depends": ['base', 'stock', 'product'],
     "data": [
+        'security/ir.model.access.csv',
+        'data/group_details_data.xml',
+        'data/product_details_data.xml',
         'views/product_template_views.xml',
         'views/product_category_views.xml',
     ],
