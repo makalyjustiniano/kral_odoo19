@@ -26,6 +26,15 @@ class ProductTemplate(models.Model):
     product_line_product = fields.Many2one('product.details', string="Producto", help="Producto.")
     product_line_group = fields.Many2one('group.details', string="Grupo", help="Grupo.")
 
+    ### Fields of technical data sheets
+
+    prop_organolepticas = fields.Html(string="Propiedades Organolépticas", help="Propiedades Organolépticas del producto.")
+    prop_fisico_quimicas = fields.Html(string="Propiedades Físico-Químicas", help="Propiedades Físico-Químicas del producto.")
+    data_microbologicos = fields.Html(string="Datos Microbiológicos", help="Datos Microbiológicos del producto.")
+    info_nutricional = fields.Html(string="Información Nutricional", help="Información Nutricional del producto.")
+
+
+
     @api.onchange('categ_id')
     def _onchange_category_code(self):
         for product in self:

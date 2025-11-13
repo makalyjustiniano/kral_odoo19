@@ -32,9 +32,22 @@
                                 <field name="description_unidad_medida_siat"/>
                     
                             </group>
+
+                            <group  invisible="sale_ok != True">
+                            
+                    
+                            </group>
+                            <group string="Tablas de Fichas Técnicas" invisible="sale_ok != True">
+                                <field name="prop_organolepticas"/>
+                                <field name="prop_fisico_quimicas"/>
+                                <field name="data_microbologicos"/>
+                                <field name="info_nutricional"/>
+                            </group>
                         </group>
                     </page>
                 </notebook>
+
+               
             </field>
         </record>
        
