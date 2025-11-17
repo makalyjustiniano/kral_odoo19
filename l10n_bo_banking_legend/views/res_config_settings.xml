@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+        
+        <!-- Form view for "model" -->
+        <record id="res_l10n_bo_banking_config_settings_view_form" model="ir.ui.view">
+            <field name="name">Vista leyenda de bancarizacion (BO)</field>
+            <field name="model">res.config.settings</field>
+             <field name="inherit_id" ref="account.res_config_settings_view_form" />
+            <field name="arch" type="xml">
+                
+                <xpath expr="//block[@name='fiscal_localization_setting_container']/setting/div" position="after">
+                    <div class="content-group">
+                        <div class="row mt16">
+                            <label for="banking_legend" string="Leyenda bancaria" class="col-2 o_light_label"/>
+                            <field name="banking_legend" placeholder='Escribe una leyenda de bancarizacion' />
+                        </div>
+                        <div class="row mt16">
+                            <label for="banking_amount" string="Bancarizar >= " class="col-2 o_light_label"/>
+                            <field name="banking_amount" />
+                        </div>
+                        
+                    </div>
+                </xpath>
+                
+                
+            </field>
+        </record>
+        
+        
+    </data>
+</odoo>

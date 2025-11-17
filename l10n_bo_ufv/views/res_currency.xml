@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Form view for res.currency -->
+        <record id="view_kral_industries_bcb_ufv_res_currency_form" model="ir.ui.view">
+            <field name="name">Vista cotizacion UFV</field>
+            <field name="model">res.currency</field>
+            <field name="inherit_id" ref="base.view_currency_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='rates']" position="after">
+                    <page string="Ajustes cotizacion UFV" name='ufv_rates'>
+                        <group>
+                            <group string='Usar esta moneda para cotizaciones UFV'>
+                                <field name="is_ufv_rate"/>
+                            </group>
+                        </group>
+
+                        <group string='Informacion consultas' invisible="is_ufv_rate == False">
+                            <group>
+                                <span class="o_form_label o_td_label">
+                                    <b>Consulta</b>
+                                </span>
+                                <div class="o_address_format">
+                                    <span invisible="ufv_rate_end_date == False">En fecha: - Desde: </span>
+                                    <field name="ufv_rate_init_date" class="o_address_city"/>
+                                    <span invisible="ufv_rate_end_date == False">En fecha: - Hasta: </span>
+                                    <field name="ufv_rate_end_date" class="o_address_state"/>
+                                    <button name="action_ufv_cotization_request" icon="fa-play" type="object" class="o_address_zip oe_highlight"/>
+                                </div>
+                            </group>
+                            <group>
+                                <button name="action_move_to_currency_rates" icon="fa-arrow-left" string="Mover cotizacion a tasas" confirm="Confirma mover las cotizaciones UFV a su lista de tasas de cambio, esta accion solo agrega las nuevas cotizaciones cuya fecha no estan en las tasas de cambio" type="object" class="oe_highlight"/>
+                            </group>
+                        </group>
+
+                        <notebook string="UFV" invisible="is_ufv_rate == False">
+                            <page string="Cotizaciones UFV" name="ufv_cotization_page">
+                                <field name="ufv_cotization_ids" nolabel="1">
+                                   
+                                </field>
+                            </page>
+                        </notebook>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

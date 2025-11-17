@@ -33,6 +33,7 @@ class ProductTemplate(models.Model):
     data_microbologicos = fields.Html(string="Datos Microbiológicos", help="Datos Microbiológicos del producto.")
     info_nutricional = fields.Html(string="Información Nutricional", help="Información Nutricional del producto.")
 
+    limit_discount_percentage = fields.Float(string="Porcentaje Límite de Descuento %", help="Porcentaje límite de descuento para el producto.")
 
 
     @api.onchange('categ_id')
