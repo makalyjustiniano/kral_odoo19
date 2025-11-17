@@ -9,9 +9,6 @@ class ExtendedMailThread(models.AbstractModel):
     _inherit = 'mail.thread'
     _description = 'Mail.Thread extendido con tracking completo'
 
-
-    
-
     def write(self, vals):
         for record in self:
             changes = []
