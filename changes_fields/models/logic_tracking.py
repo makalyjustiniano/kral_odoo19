@@ -10,7 +10,10 @@ class ExtendedMailThread(models.AbstractModel):
     _description = 'Mail.Thread extendido con tracking completo'
 
     def write(self, vals):
+        """Sobrescribir write para trackear campos sin tracking"""
         for record in self:
+            changes = []
+
             changes = []
             lang_ctx = record.with_context(lang=record.env.lang)
 
@@ -23,19 +26,20 @@ class ExtendedMailThread(models.AbstractModel):
                     if old_value != new_value:
                         label = lang_ctx._fields[field_name].string
                         label = record.with_context(lang=record.env.lang)._fields[field_name].string
-
-                        #old_disp = field_obj.convert_to_display_name(old_value, record.with_context(lang=record.env.lang))
-                        #new_disp = field_obj.convert_to_display_name(new_value, record.with_context(lang=record.env.lang))
-
+                        if field_obj.type in ['one2many', 'many2many']:
+                            old_value = old_value.display_name
                         changes.append((label, old_value, new_value))
             if changes:
                 message = ""
                 for field, old, new in changes:
                     message = f"{old} → {new} ({field})"
-
+            
                 record.message_post(
                     body=message,
                     message_type='comment', 
                     subtype_id=self.env.ref('mail.mt_comment').id
                 )
-        return super().write(vals)
+            
+            return super().write(vals)
+
+ 
