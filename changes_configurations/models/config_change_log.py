@@ -18,7 +18,6 @@ class ConfigChangeLog(models.Model):
     field_name = fields.Char(string='Campo')
     old_value = fields.Text(string='Valor anterior')
     new_value = fields.Text(string='Valor nuevo')
-    full_data = fields.Text(string='Datos completos')
     
     @api.depends('config_module', 'field_name', 'change_date')
     def _compute_name(self):

@@ -12,7 +12,6 @@
                     <field name="config_module"/>
                     <field name="field_name"/>
                     <field name="new_value"/>
-                    <field name="full_data" invisible="1"/>
                 </list>
             </field>
         </record>
@@ -43,9 +42,7 @@
                                 <field name="new_value" readonly="1" nolabel="1"/>
                             </group>
                         </group>
-                        <group string="Datos Completos">
-                            <field name="full_data" readonly="1" nolabel="1"/>
-                        </group>
+                      
                     </sheet>
                 </form>
             </field>
