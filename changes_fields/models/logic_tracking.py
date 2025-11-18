@@ -10,13 +10,15 @@ class ExtendedMailThread(models.AbstractModel):
     _inherit = 'mail.thread'
     _description = 'Mail.Thread extendido con tracking completo'
 
+
     def write(self, vals):
         """Sobrescribir write para trackear campos sin tracking"""
+        user_lang = self.env.user.lang or "en_US"
+
         for record in self:
             changes = []
 
-            changes = []
-            lang_ctx = record.with_context(lang=record.env.lang)
+            lang_ctx = record.with_context(lang=user_lang)
 
             for field_name, new_value in vals.items():
                 field_obj = record._fields.get(field_name)
@@ -31,13 +33,10 @@ class ExtendedMailThread(models.AbstractModel):
                             new_rec = record.env[field_obj.comodel_name].browse(new_value) if new_value else False
                             new_disp = new_rec.display_name if new_rec else ""
 
-                        # ==========================
-                        #  MANEJO PARA MANY2MANY / ONE2MANY
-                        # ==========================
+                        
                         elif field_obj.type in ['many2many', 'one2many']:
                             old_disp = ", ".join(old_value.mapped('display_name')) if old_value else ""
 
-                            # Interpretar comandos Odoo:
                             new_ids = record._fields[field_name].convert_to_cache(new_value, record)
 
                             new_recs = record.env[field_obj.comodel_name].browse(new_ids)
@@ -47,15 +46,16 @@ class ExtendedMailThread(models.AbstractModel):
                             old_disp = html2plaintext(old_value or "")
                             new_disp = html2plaintext(new_value or "")
 
-                        # ==========================
-                        #  OTROS TIPOS
-                        # ==========================
+                      
                         else:
                             old_disp = old_value
                             new_disp = new_value
 
                         label = lang_ctx._fields[field_name].string
-                        label = record.with_context(lang=record.env.lang)._fields[field_name].string
+                        if label == record._fields[field_name].string and user_lang == 'es_BO':
+                            label = record.with_context(lang='es_ES')._fields[field_name].string
+
+
                         if field_obj.type in ['one2many', 'many2many']:
                             old_value = old_value.display_name
 
@@ -68,9 +68,12 @@ class ExtendedMailThread(models.AbstractModel):
 
             if changes:
                 message = ""
+                message_lines = []
                 for field, old, new in changes:
+                    if new == '':
+                        new = False
                     message += f"{old} → {new} ({field}) \n"
-            
+
                 record.message_post(
                     body=message,
                     message_type='comment', 
