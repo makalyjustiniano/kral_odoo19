@@ -17,6 +17,11 @@
                                 <field name ="product_line_product" widget="many2one_tags"/>
                                 <field name ="product_line_group" widget="many2one_tags"/>
                                 <field name="limit_discount_percentage"/>
+                                <field name="color_custom"></field>
+                                <field name="procedencia"/>
+                                <field name="vida_util"/>
+                                <field name="detalles_mataterias_primas"/>
+
 
                             </group>
 

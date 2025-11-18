@@ -26,6 +26,10 @@ class ProductTemplate(models.Model):
     product_line_product = fields.Many2one('product.details', string="Producto", help="Producto.")
     product_line_group = fields.Many2one('group.details', string="Grupo", help="Grupo.")
 
+    procedencia = fields.Char(string="Procedencia", help="Procedencia del producto.")
+    vida_util = fields.Float(string="Vida Útil", help="Vida útil del producto.")
+    detalles_mataterias_primas = fields.Text(string="Detalles de Materias Primas", help="Detalles de las materias primas del producto.")
+    color_custom = fields.Char(string="Color", help="Color del producto.")
     ### Fields of technical data sheets
 
     prop_organolepticas = fields.Html(string="Propiedades Organolépticas", help="Propiedades Organolépticas del producto.")
