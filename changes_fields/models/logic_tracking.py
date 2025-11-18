@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from odoo import api, models, fields, _
 import logging
+from odoo.tools import html2plaintext
 
 _logger = logging.getLogger(__name__)
 
@@ -23,16 +24,52 @@ class ExtendedMailThread(models.AbstractModel):
                     continue 
                 if not getattr(field_obj, 'tracking', False):
                     old_value = getattr(record, field_name)
+
                     if old_value != new_value:
+                        if field_obj.type == 'many2one':
+                            old_disp = old_value.display_name if old_value else ""
+                            new_rec = record.env[field_obj.comodel_name].browse(new_value) if new_value else False
+                            new_disp = new_rec.display_name if new_rec else ""
+
+                        # ==========================
+                        #  MANEJO PARA MANY2MANY / ONE2MANY
+                        # ==========================
+                        elif field_obj.type in ['many2many', 'one2many']:
+                            old_disp = ", ".join(old_value.mapped('display_name')) if old_value else ""
+
+                            # Interpretar comandos Odoo:
+                            new_ids = record._fields[field_name].convert_to_cache(new_value, record)
+
+                            new_recs = record.env[field_obj.comodel_name].browse(new_ids)
+                            new_disp = ", ".join(new_recs.mapped('display_name')) if new_recs else ""
+
+                        elif field_obj.type == 'html':
+                            old_disp = html2plaintext(old_value or "")
+                            new_disp = html2plaintext(new_value or "")
+
+                        # ==========================
+                        #  OTROS TIPOS
+                        # ==========================
+                        else:
+                            old_disp = old_value
+                            new_disp = new_value
+
                         label = lang_ctx._fields[field_name].string
                         label = record.with_context(lang=record.env.lang)._fields[field_name].string
                         if field_obj.type in ['one2many', 'many2many']:
                             old_value = old_value.display_name
-                        changes.append((label, old_value, new_value))
+
+                        if field_obj.type == 'html':
+                            changes.append((label, old_disp, new_disp))
+
+                        else:
+                            changes.append((label, old_value, new_disp))
+
+
             if changes:
                 message = ""
                 for field, old, new in changes:
-                    message = f"{old} → {new} ({field})"
+                    message += f"{old} → {new} ({field}) \n"
             
                 record.message_post(
                     body=message,
