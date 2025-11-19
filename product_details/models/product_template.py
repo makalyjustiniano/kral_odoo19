@@ -29,15 +29,47 @@ class ProductTemplate(models.Model):
     procedencia = fields.Char(string="Procedencia", help="Procedencia del producto.")
     vida_util = fields.Float(string="Vida Útil", help="Vida útil del producto.")
     detalles_mataterias_primas = fields.Text(string="Detalles de Materias Primas", help="Detalles de las materias primas del producto.")
-    color_custom = fields.Char(string="Color", help="Color del producto.")
+    
     ### Fields of technical data sheets
-
-    prop_organolepticas = fields.Html(string="Propiedades Organolépticas", help="Propiedades Organolépticas del producto.")
-    prop_fisico_quimicas = fields.Html(string="Propiedades Físico-Químicas", help="Propiedades Físico-Químicas del producto.")
-    data_microbologicos = fields.Html(string="Datos Microbiológicos", help="Datos Microbiológicos del producto.")
-    info_nutricional = fields.Html(string="Información Nutricional", help="Información Nutricional del producto.")
+    #prop_organolepticas = fields.Html(string="Propiedades Organolépticas", help="Propiedades Organolépticas del producto.")
+    #prop_fisico_quimicas = fields.Html(string="Propiedades Físico-Químicas", help="Propiedades Físico-Químicas del producto.")
+    #data_microbologicos = fields.Html(string="Datos Microbiológicos", help="Datos Microbiológicos del producto.")
+    #info_nutricional = fields.Html(string="Información Nutricional", help="Información Nutricional del producto.")
 
     limit_discount_percentage = fields.Float(string="Porcentaje Límite de Descuento %", help="Porcentaje límite de descuento para el producto.")
+
+
+    ## Consumption Table
+    form_consumption = fields.Text(string="Forma de Consumo", help="Forma de consumo del producto.")
+    intented_use = fields.Text(strin='Uso Previsto', help="Uso previsto del producto.")
+    intented_no_use = fields.Text(string="Uso No Previsto", help="Uso no previsto del producto.")
+    destination = fields.Text(string="Destinación", help="Destinación del producto.")
+
+
+    ## Ingredientes and additives table
+    ingredients = fields.Text(string="Ingredientes", help="Ingredientes del producto.")
+    additives_ids = fields.One2many('line.additives', 'product_template_id', string="Aditivos", help="Aditivos del producto.")
+
+    ## Organoleptic properties table
+    aspect = fields.Char(string="Aspecto", help="Aspecto del producto.")
+    color_custom = fields.Char(string="Color", help="Color del producto.")
+    scent = fields.Char(string="Aroma", help="Aroma del producto.")
+    flavor = fields.Char(string="Sabor", help="Sabor del producto.")
+
+
+    ## Physical-chemical properties table
+    physical_chemical_ids = fields.One2many('physical.chemical.property', 'product_template_id', string="Propiedades Físico-Químicas", help="Propiedades físico-químicas del producto.")
+    
+    ## Microbiological data table
+    microbiological_ids = fields.One2many('microbiological.data', 'product_template_id', string="Datos Microbiológicos", help="Datos microbiológicos del producto.")    
+
+
+    ## Nutritional information table
+    nutritional_info = fields.One2many( 'information.nutricional', 'nutricional_name_id', string="Información Nutricional Detallada",  help="Información nutricional detallada del producto.")
+
+    nutricional_notes = fields.Text(string="Notas de Información Nutricional", help="Notas adicionales sobre la información nutricional del producto.")
+
+
 
 
     @api.onchange('categ_id')
@@ -74,6 +106,9 @@ class ProductTemplate(models.Model):
                 code = f"{prefix}-{next_num_str}"
 
             product.default_code = code
+
+
+
 
 
     

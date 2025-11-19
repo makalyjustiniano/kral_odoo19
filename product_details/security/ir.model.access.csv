@@ -1,3 +1,11 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_product_details,access.product.details,model_product_details,base.group_user,1,1,1,1
 access_group_details,access.group.details,model_group_details,base.group_user,1,1,1,1
+access_additives_name,access.additives.name,model_additives_name,base.group_user,1,1,1,1
+access_line_additives,access.line.additives,model_line_additives,base.group_user,1,1,1,1
+access_physical_chemical_name,access.physical.chemical.name,model_physical_chemical_name,base.group_user,1,1,1,1
+access_physical_chemical_property,access.physical.chemical.property,model_physical_chemical_property,base.group_user,1,1,1,1
+access_microbiological_name,access.microbiological.name,model_microbiological_name,base.group_user,1,1,1,1
+access_microbiological_data,access.microbiological.data,model_microbiological_data,base.group_user,1,1,1,1
+access_information_nutricional_name,access.information.nutricional.name,model_information_nutricional_name,base.group_user,1,1,1,1
+access_information_nutricional,access.information.nutricional,model_information_nutricional,base.group_user,1,1,1,1
