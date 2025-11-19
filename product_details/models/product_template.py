@@ -29,7 +29,8 @@ class ProductTemplate(models.Model):
     procedencia = fields.Char(string="Procedencia", help="Procedencia del producto.")
     vida_util = fields.Float(string="Vida Útil", help="Vida útil del producto.")
     detalles_mataterias_primas = fields.Text(string="Detalles de Materias Primas", help="Detalles de las materias primas del producto.")
-    
+    capacidad_almacenamiento = fields.Text(string="Capacidad de Almacenamiento", help="Capacidad de almacenamiento del producto.")
+    modo_conservacion = fields.Text(string="Modo de Conservación", help="Modo de conservación del producto.")
     ### Fields of technical data sheets
     #prop_organolepticas = fields.Html(string="Propiedades Organolépticas", help="Propiedades Organolépticas del producto.")
     #prop_fisico_quimicas = fields.Html(string="Propiedades Físico-Químicas", help="Propiedades Físico-Químicas del producto.")

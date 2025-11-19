@@ -16,6 +16,8 @@
                                 <field name ="product_line_product" widget="many2one_tags"/>
                                 <field name ="product_line_group" widget="many2one_tags"/>
                                 <field name="limit_discount_percentage" invisible="sale_ok != True" />
+                                <field name="capacidad_almacenamiento"/>
+                                <field name="modo_conservacion"/>
                                 <field name="procedencia"/>
                                 <field name="vida_util"/>
                                 <field name="detalles_mataterias_primas"/>
