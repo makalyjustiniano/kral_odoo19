@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Carga inicial de physical.chemical.name -->
+        <record id="proper_physical_chemical_01" model="physical.chemical.name">
+            <field name="name">pH</field>
+            <field name="description">pH</field>
+        </record>
+        <record id="proper_physical_chemical_02" model="physical.chemical.name">
+            <field name="name">Acidez</field>
+            <field name="description">Acidez</field>
+        </record>
+        <record id="proper_physical_chemical_03" model="physical.chemical.name">
+            <field name="name">Penetracion</field>
+            <field name="description">Penetracion</field>
+        </record>
+        <record id="proper_physical_chemical_04" model="physical.chemical.name">
+            <field name="name">Solidos Solubles</field>
+            <field name="description">Solidos Solubles</field>
+        </record>
+        <record id="proper_physical_chemical_05" model="physical.chemical.name">
+            <field name="name">Densidad</field>
+            <field name="description">Densidad</field>
+        </record>
+       
+    </data>
+</odoo>

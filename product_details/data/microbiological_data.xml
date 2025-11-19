@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Carga inicial de microbiological.name  -->
+        <record id="microbiological_name_01" model="microbiological.name">
+            <field name="name">Recuento total de bacterias aerobias mesófitas </field>
+            <field name="description">Recuento total de bacterias aerobias mesófitas </field>
+        </record>
+
+        <record id="microbiological_name_02" model="microbiological.name">
+            <field name="name">Escherichia coli </field>
+            <field name="description">Escherichia coli </field>
+        </record>
+
+        <record id="microbiological_name_03" model="microbiological.name">
+            <field name="name">Levaduras </field>
+            <field name="description">Levaduras </field>
+        </record>
+        <record id="microbiological_name_04" model="microbiological.name">
+            <field name="name">Mohos </field>
+            <field name="description">Mohos </field>
+        </record>
+        <record id="microbiological_name_05" model="microbiological.name">
+            <field name="name">Coliformes Totales </field>
+            <field name="description">Coliformes Totales </field>
+        </record>
+        <record id="microbiological_name_06" model="microbiological.name">
+            <field name="name">Staphylococcus Aureus </field>
+            <field name="description">Staphylococcus Aureus </field>
+        </record>
+        <record id="microbiological_name_07" model="microbiological.name">
+            <field name="name">Mohos y Levaduras </field>
+            <field name="description">Mohos y Levaduras </field>
+        </record>           
+        <record id="microbiological_name_08" model="microbiological.name">
+            <field name="name">Enterobacterias </field>
+            <field name="description">Enterobacterias </field>
+        </record>
+       
+    </data>
+</odoo>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="information_nutricional_name_01" model="information.nutricional.name">
+            <field name="name">Valor energético</field>
+            <field name="description">Valor energético</field>
+        </record>
+        <record id="information_nutricional_name_02" model="information.nutricional.name">
+            <field name="name">Grasas</field>
+            <field name="description">Grasas</field>
+        </record>
+        <record id="information_nutricional_name_03" model="information.nutricional.name">
+            <field name="name">De las cuales saturadas</field>
+            <field name="description">De las cuales saturadas</field>
+        </record>
+        <record id="information_nutricional_name_04" model="information.nutricional.name">
+            <field name="name">Hidratos de carbono</field>
+            <field name="description">Hidratos de carbono</field>
+        </record>
+        <record id="information_nutricional_name_05" model="information.nutricional.name">
+            <field name="name">De los cuales azúcares</field>
+            <field name="description">De los cuales azúcares</field>
+        </record>
+        <record id="information_nutricional_name_06" model="information.nutricional.name">
+            <field name="name">Proteínas</field>
+            <field name="description">Proteínas</field>
+        </record>
+        <record id="information_nutricional_name_07" model="information.nutricional.name">
+            <field name="name">Sodio</field>
+            <field name="description">Sodio</field>
+        </record>
+       
+    </data>
+</odoo>

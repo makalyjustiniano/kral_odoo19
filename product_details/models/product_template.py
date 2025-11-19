@@ -65,11 +65,12 @@ class ProductTemplate(models.Model):
 
 
     ## Nutritional information table
-    nutritional_info = fields.One2many( 'information.nutricional', 'nutricional_name_id', string="Información Nutricional Detallada",  help="Información nutricional detallada del producto.")
-
+    nutritional_info = fields.One2many( 'information.nutricional', 'product_template_id', string="Información Nutricional Detallada",  help="Información nutricional detallada del producto.")
     nutricional_notes = fields.Text(string="Notas de Información Nutricional", help="Notas adicionales sobre la información nutricional del producto.")
 
 
+    ## Alergenos Information
+    
 
 
     @api.onchange('categ_id')
