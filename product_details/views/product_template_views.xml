@@ -32,7 +32,10 @@
                             </group>
                         </group>
                         <group string="Tablas de Fichas Técnicas" invisible="sale_ok != True">
-                            <group name="ingredientes_and_additives" string="Ingredientes y Additives" >
+                            <group name="ingredients" string="ingredientes" >
+                                <field name="ingredients"   />
+                            </group>
+                            <group name="ingredientes_and_additives" string="Aditivos" >
                                 <field name="additives_ids" nolabel="1"  >
                                     <list editable="bottom">
                                         <field name="name"/>
@@ -47,38 +50,34 @@
                                 <field name="intented_no_use" />
                                 <field name="destination"/>
                             </group>
-
                             <group string="Propiedades Organolépticas" invisible="sale_ok != True">
                                 <field name="aspect"/>
                                 <field name="color_custom"/>
                                 <field name="flavor"/>
                                 <field name="scent"/>
                             </group>
-
                             <group string="Propiedades Físico-Químicas" invisible="sale_ok != True">
-                                    <field name="physical_chemical_ids" nolabel="1">
-                                        <list editable="bottom">
-                                            <field name="physical_chemical_name_id"/>
-                                            <field name="method"/>
-                                            <field name="min"/>
-                                            <field name="max"/>
-                                            <field name="unit"/>
-                                        </list>
-                                    </field>
+                                <field name="physical_chemical_ids" nolabel="1">
+                                    <list editable="bottom">
+                                        <field name="physical_chemical_name_id"/>
+                                        <field name="method"/>
+                                        <field name="min"/>
+                                        <field name="max"/>
+                                        <field name="unit"/>
+                                    </list>
+                                </field>
                             </group>
-
                             <group string="Datos Microbiológicos" invisible="sale_ok != True">
-                                    <field name="microbiological_ids" nolabel="1"  >
-                                        <list editable="bottom">
-                                            <field name="microbiological_name_id"/>
-                                            <field name="limit_permitted_n"/>
-                                            <field name="limit_permitted_c"/>
-                                            <field name="limit_permitted_m_ufc_g"/>
-                                            <field name="limit_permitted_m"/>
-                                        </list>
-                                    </field>
+                                <field name="microbiological_ids" nolabel="1"  >
+                                    <list editable="bottom">
+                                        <field name="microbiological_name_id"/>
+                                        <field name="limit_permitted_n"/>
+                                        <field name="limit_permitted_c"/>
+                                        <field name="limit_permitted_m_ufc_g"/>
+                                        <field name="limit_permitted_m"/>
+                                    </list>
+                                </field>
                             </group>
-
                             <group string="Información Nutricional Detallada" invisible="sale_ok != True">
                                 <field name="nutritional_info" nolabel="1" >
                                     <list editable="bottom">
@@ -94,9 +93,24 @@
                             <group string="Notas de Información Nutricional" invisible="sale_ok != True">
                                 <field name="nutricional_notes"  />
                             </group>
-       
+
                             
                         </group>
+                    </page>
+                    <page name="alegens" string="Alérgenos" invisible="sale_ok != True">
+
+                                <field name="alergenos_ids" nolabel="1" >
+                                    <list editable="bottom">
+
+                                        <field name="allergen_id"/>
+                                        <field name="anser_value_no" />
+                                        <field name="anser_value_yes" />
+                                        <field name="puede_contener" />
+                                        <field name="especificar_producto" />      
+                                                                          
+                                    </list>
+                                </field>
+                        
                     </page>
                 </notebook>
             </field>

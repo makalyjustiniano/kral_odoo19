@@ -70,9 +70,8 @@ class ProductTemplate(models.Model):
 
 
     ## Alergenos Information
+    alergenos_ids = fields.One2many('product.allergens.line', 'product_template_id' ,string="Alergenos", help="Alergenos del producto.")
     
-
-
     @api.onchange('categ_id')
     def _onchange_category_code(self):
         for product in self:

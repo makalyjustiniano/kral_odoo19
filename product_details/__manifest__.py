@@ -17,8 +17,10 @@
         'data/proper_physical_chemical_data.xml',
         'data/microbiological_data.xml',
         'data/nutritional_data.xml',
+        'data/alergenos_data.xml',
         'views/product_template_views.xml',
         'views/product_category_views.xml',
+
     ],
     'assets': {
         'web.assets_backend': [

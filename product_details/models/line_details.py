@@ -87,3 +87,21 @@ class InformationNutricional(models.Model):
     by_ration = fields.Char(string="Ración", help="Cantidad por ración.")
     por_ration_percentage = fields.Char(string="%Ración", help="Porcentaje por ración.")   
     product_template_id = fields.Many2one('product.template', string="Producto", help="Producto asociado a la información nutricional.")
+
+
+class ProductAllergens(models.Model):
+    _name = 'product.allergens'
+
+    name = fields.Char(string="Alergeno", help="Nombre del alérgeno.")
+    description = fields.Text(string="Descripción Alergeno", help="Descripción del alérgeno del producto.")
+
+
+class ProductAlergensLine(models.Model):
+    _name = 'product.allergens.line'
+
+    allergen_id = fields.Many2one('product.allergens', string="Alergeno", help="Alergeno asociado.")
+    anser_value_no = fields.Boolean(string="No", help="Indica si el alérgeno no está presente.", default=True)
+    anser_value_yes = fields.Boolean(string="Sí", help="Indica si el alérgeno está presente.")
+    puede_contener = fields.Boolean(string="Puede Contener", help="Indica si el alérgeno puede estar presente.")
+    especificar_producto = fields.Char(string="Especificar Producto", help="Especificación del producto relacionado con el alérgeno.")
+    product_template_id = fields.Many2one('product.template', string="Producto", help="Producto asociado al alérgeno.")

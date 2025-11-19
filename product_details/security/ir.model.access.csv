@@ -9,3 +9,5 @@ access_microbiological_name,access.microbiological.name,model_microbiological_na
 access_microbiological_data,access.microbiological.data,model_microbiological_data,base.group_user,1,1,1,1
 access_information_nutricional_name,access.information.nutricional.name,model_information_nutricional_name,base.group_user,1,1,1,1
 access_information_nutricional,access.information.nutricional,model_information_nutricional,base.group_user,1,1,1,1
+access_product_allergens,access.product.allergens,model_product_allergens,base.group_user,1,1,1,1
+access_product_allergens_line,access.product.allergens.line,model_product_allergens_line,base.group_user,1,1,1,1

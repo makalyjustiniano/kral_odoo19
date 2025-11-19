@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Carga inicial de product.allergens -->
+        <record id="product_allergens_01" model="product.allergens">
+            <field name="name">Cereales que contienen gluten (A) y productos derivados  </field>
+            <field name="description">Cereales que contienen gluten (A) y productos derivados  </field>
+        </record>
+
+        <record id="product_allergens_02" model="product.allergens">
+            <field name="name">Crustáceos y productos a base de crustáceos  </field>
+            <field name="description">Crustáceos y productos a base de crustáceos  </field>
+        </record>   
+        <record id="product_allergens_03" model="product.allergens">
+            <field name="name">Huevos y productos a base de huevos  </field>
+            <field name="description">Huevos y productos a base de huevos  </field>
+        </record>
+        <record id="product_allergens_04" model="product.allergens">
+            <field name="name">Pescado y productos a base de pescado  </field>
+            <field name="description">Pescado y productos a base de pescado  </field>
+        </record>
+        <record id="product_allergens_05" model="product.allergens">
+            <field name="name">Cacahuetes y productos a base de cacahuetes  </field>
+            <field name="description">Cacahuetes y productos a base de cacahuetes  </field>
+        </record>
+        <record id="product_allergens_06" model="product.allergens">
+            <field name="name">Soja y productos a base de soja  </field>
+            <field name="description">Soja y productos a base de soja  </field>             
+        </record>
+        <record id="product_allergens_07" model="product.allergens">    
+            <field name="name">Leche y sus derivados, incluida la lactosa  </field>
+            <field name="description">Leche y sus derivados, incluida la lactosa  </field>
+        </record>
+        <record id="product_allergens_08" model="product.allergens">
+            <field name="name">Frutos de cáscara (B) y productos derivados  </field>
+            <field name="description">Frutos de cáscara (B) y productos derivados  </field>
+        </record>
+        <record id="product_allergens_09" model="product.allergens">
+            <field name="name">Apio y productos derivados  </field>
+            <field name="description">Apio y productos derivados  </field>
+        </record>
+        <record id="product_allergens_10" model="product.allergens">
+            <field name="name">Mostaza y productos derivados  </field>
+            <field name="description">Mostaza y productos derivados  </field>       
+        </record>
+        <record id="product_allergens_11" model="product.allergens">
+            <field name="name">Granos de sésamo y productos a base de granos de sésamo  </field>
+            <field name="description">Granos de sésamo y productos a base de granos de sésamo  </field>
+        </record>
+        <record id="product_allergens_12" model="product.allergens">
+            <field name="name">Anhídrido sulfuroso y sulfitos (C)  </field>
+            <field name="description">Anhídrido sulfuroso y sulfitos (C)  </field>
+        </record>
+        <record id="product_allergens_13" model="product.allergens">
+            <field name="name">Altramuz y productos a base de altramuces  </field>
+            <field name="description">Altramuz y productos a base de altramuces  </field>
+        </record>
+        <record id="product_allergens_14" model="product.allergens">
+            <field name="name">Moluscos y productos a base de moluscos  </field>
+            <field name="description">Moluscos y productos a base de moluscos  </field>
+        </record>       
+
+       
+    </data>
+</odoo>
