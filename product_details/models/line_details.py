@@ -64,8 +64,8 @@ class MicrobiologicalData(models.Model):
     name = fields.Text(string="Recuentos", help="Descripción del recuento microbiológico.")
     limit_permitted_n = fields.Float(string="N", help="Límite permitido N del recuento microbiológico.")
     limit_permitted_c = fields.Float(string="c", help="Límite permitido c del recuento microbiológico.")
-    limit_permitted_m_ufc_g = fields.Float(string="m (UFC/g)", help="Límite permitido M en UFC/g del recuento microbiológico.")
-    limit_permitted_m = fields.Float(string="M", help="Límite permitido M del recuento microbiológico.")
+    limit_permitted_m_ufc_g = fields.Char(string="m (UFC/g)", help="Límite permitido M en UFC/g del recuento microbiológico.")
+    limit_permitted_m = fields.Char(string="M", help="Límite permitido M del recuento microbiológico.")
 
     product_template_id = fields.Many2one('product.template', string="Producto", help="Producto asociado al recuento microbiológico.")
 
