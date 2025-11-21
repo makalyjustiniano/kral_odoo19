@@ -20,7 +20,7 @@
                                 <field name="modo_conservacion"/>
                                 <field name="procedencia"/>
                                 <field name="vida_util"/>
-                                <field name="detalles_mataterias_primas"/>
+                                <field name="detalles_mataterias_primas" invisible="1"/>
                             </group>
                             <group string="Medidas y Pesos">
                                 <field name="net_weight"/>

@@ -42,9 +42,9 @@ class ProductTemplate(models.Model):
 
     ## Consumption Table
     form_consumption = fields.Text(string="Forma de Consumo", help="Forma de consumo del producto.")
-    intented_use = fields.Text(strin='Uso Previsto', help="Uso previsto del producto.")
+    intented_use = fields.Text(string='Uso Previsto', help="Uso previsto del producto.")
     intented_no_use = fields.Text(string="Uso No Previsto", help="Uso no previsto del producto.")
-    destination = fields.Text(string="Destinación", help="Destinación del producto.")
+    destination = fields.Text(string="Destino", help="Destinación del producto.")
 
 
     ## Ingredientes and additives table
