@@ -88,7 +88,7 @@
                                         <field name="by_g" />
                                         <field name="by_ration"/>
                                         <field name="por_ration_percentage" />
-                                        <field name="product_template_id" />
+                                        <field name="product_template_id" invisible="1"/>
                                     </list>
                                 </field>
                             </group>

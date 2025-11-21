@@ -83,9 +83,9 @@ class InformationNutricional(models.Model):
     nutricional_name_id = fields.Many2one('information.nutricional.name', string="Info Nutricional", help="Nombre de la información nutricional asociada.")
     name = fields.Char(string="Nombre Información Nutricional", help="Nombre de la información nutricional del producto.")
     information = fields.Text(string="Información Nutricional", help="Información nutricional del producto.")
-    by_g = fields.Char(string="100 g", help="Cantidad por gramo.")
-    by_ration = fields.Char(string="Ración", help="Cantidad por ración.")
-    por_ration_percentage = fields.Char(string="%Ración", help="Porcentaje por ración.")   
+    by_g = fields.Char(string="Por 100 g", help="Cantidad por gramo.")
+    by_ration = fields.Char(string="Por Ración", help="Cantidad por ración.")
+    por_ration_percentage = fields.Char(string="Por % Ración", help="Porcentaje por ración.")   
     product_template_id = fields.Many2one('product.template', string="Producto", help="Producto asociado a la información nutricional.")
 
 
