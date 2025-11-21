@@ -84,11 +84,9 @@
                                 <field name="nutritional_info" nolabel="1" >
                                     <list editable="bottom">
                                         <field name="nutricional_name_id"/>
-                                        <field name="information" invisible="1"/>
                                         <field name="by_g" />
                                         <field name="by_ration"/>
                                         <field name="por_ration_percentage" />
-                                        <field name="product_template_id" invisible="1"/>
                                     </list>
                                 </field>
                             </group>
