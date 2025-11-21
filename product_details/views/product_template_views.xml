@@ -40,7 +40,7 @@
                             <group name="ingredientes_and_additives" string="Aditivos" >
                                 <field name="additives_ids" nolabel="1"  >
                                     <list editable="bottom">
-                                        <field name="additive_name_id"/>
+                                        <field name="additive_name_id" />
                                         <field name="code"/>
                                         <field name="description" optional="hidden"/>
                                         <field name="weight" />
