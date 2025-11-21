@@ -23,13 +23,16 @@ class LineAdditivesName(models.Model):
 
     name = fields.Char(string="Nombre Aditivo", help="Nombre del aditivo del producto.")
     description = fields.Text(string="Descripción Nombre Aditivo", help="Descripción del nombre del aditivo del producto.")
+    code = fields.Char(string="Código Aditivo", help="Código del aditivo del producto.")
+    category = fields.Char(string="Categoría Aditivo", help="Categoría del aditivo del producto.")
 
 class LineAdditives(models.Model):
     _name = 'line.additives'
 
     additive_name_id = fields.Many2one('additives.name', string="Nombre", help="Nombre del aditivo del producto.")
     name = fields.Text(string="Descripción Aditivo", help="Descripción del aditivo del producto.")
-    code = fields.Char(string="Código", help="Código del aditivo del producto.")
+    description = fields.Text(related="additive_name_id.description", string="Descripción", help="Descripción detallada del aditivo del producto.")
+    code = fields.Char(related='additive_name_id.code', string="Código Aditivo", help="Código del aditivo del producto.")
     weight = fields.Float(string="Peso g/kg", help="Peso del aditivo del producto.", digits=(16, 4))
     product_template_id = fields.Many2one('product.template', string="Producto", help="Producto asociado al aditivo.")
 

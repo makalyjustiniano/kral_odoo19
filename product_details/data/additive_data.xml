@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Carga inicial de additives.name -->
+        <record id="additives_name_01" model="additives.name">
+            <field name="name">Curcumina</field>
+            <field name="description">Color amarillo natural de la cúrcuma </field>
+            <field name="code">E-100</field>
+            <field name="category">Colorante</field>
+        </record>
+        <record id="additives_name_02" model="additives.name">
+            <field name="name">Tartrazina</field>
+            <field name="description">Color amarillo limón sintético.</field>
+            <field name="code">E-102</field>
+            <field name="category">Colorante</field>
+        </record>
+        <record id="additives_name_03" model="additives.name">
+            <field name="name">Carmines, Ácido Carmínico</field>
+            <field name="description">Color rojo natural de cochinillas.</field>
+            <field name="code">E-120</field>
+            <field name="category">Colorante</field>
+        </record>
+        <record id="additives_name_04" model="additives.name">
+            <field name="name">Azorrubina, Carmoisina</field>
+            <field name="description">Color rojo sintético.</field>
+            <field name="code">E-122</field>        
+            <field name="category">Colorante</field>
+        </record>
+        <record id="additives_name_05" model="additives.name">
+            <field name="name">Indigotina, Carmín de Índigo</field>
+            <field name="description">Color azul sintético.</field>
+            <field name="code">E-132</field>        
+            <field name="category">Colorante</field>
+        </record>
+        <record id="additives_name_06" model="additives.name">
+            <field name="name">Caramelo I (simple)</field>
+            <field name="description">Color marrón.</field>
+            <field name="code">E-150a</field>        
+            <field name="category">Colorante</field>
+        </record>
+        <record id="additives_name_07" model="additives.name">
+            <field name="name">Betacarotenos</field>    
+            <field name="description">Color naranja-amarillo natural (Provitamina A).</field>
+            <field name="code">E-160a</field>        
+            <field name="category">Colorante</field>
+        </record>
+        <record id="additives_name_08" model="additives.name">
+            <field name="name">Rojo de Remolacha, Betanina</field>
+            <field name="description">Color rojo natural.</field>
+            <field name="code">E-162</field>    
+            <field name="category">Colorante</field>    
+        </record>
+        <record id="additives_name_09" model="additives.name">
+            <field name="name">Dióxido de Titanio</field>
+            <field name="description">Color blanco.</field>
+            <field name="code">E-171</field>        
+            <field name="category">Colorante</field>
+        </record>
+        <record id="additives_name_10" model="additives.name">
+            <field name="name">Ácido Sórbico</field>
+            <field name="description">Inhibe el crecimiento de hongos y levaduras.</field>
+            <field name="code">E-200</field>        
+            <field name="category">Conservante</field>
+        </record>
+        <record id="additives_name_11" model="additives.name">
+            <field name="name">Sorbato de Potasio</field>
+            <field name="description">Sal del ácido sórbico, misma función.</field>
+            <field name="code">E-202</field>        
+            <field name="category">Conservante</field>
+        </record>
+        <record id="additives_name_12" model="additives.name">
+            <field name="name">Benzoato de Sodio</field>
+            <field name="description">Inhibe bacterias y hongos. Común en bebidas.</field>
+            <field name="code">E-211</field>        
+            <field name="category">Conservante</field>
+        </record>
+        <record id="additives_name_13" model="additives.name">
+            <field name="name">Dióxido de Azufre</field>
+            <field name="description">Antioxidante y conservante en frutas secas y vino.</field>
+            <field name="code">E-220</field>        
+            <field name="category">Conservante</field>
+        </record>
+        <record id="additives_name_14" model="additives.name">
+            <field name="name">Nisina</field>   
+            <field name="description">Conservante natural (antibiótico) en quesos.</field>
+            <field name="code">E-234</field>        
+            <field name="category">Conservante</field>
+        </record>
+        <record id="additives_name_15" model="additives.name">
+            <field name="name">Nitrito de Sodio</field>
+            <field name="description">Anti-botulínico y fijador de color en carnes curadas.</field>
+            <field name="code">E-250</field>        
+            <field name="category">Conservante</field>
+        </record>
+        <record id="additives_name_16" model="additives.name">
+            <field name="name">Nitrato de Sodio</field>
+            <field name="description">Similar al nitrito, se convierte en él.</field>
+            <field name="code">E-251</field>        
+            <field name="category">Conservante</field>
+        </record>
+        <record id="additives_name_17" model="additives.name">
+            <field name="name">Ácido Propiónico</field>
+            <field name="description">Anti-hongos, usado en panadería.</field>
+            <field name="code">E-280</field>        
+            <field name="category">Conservante</field>
+        </record>
+        <record id="additives_name_18" model="additives.name">
+            <field name="name">Ácido Ascórbico (Vitamina C)</field>
+            <field name="description">Previene la oxidación, mejora la harina.</field>
+            <field name="code">E-300</field>    
+            <field name="category">Antioxidante</field>
+        </record>
+        <record id="additives_name_19" model="additives.name">
+            <field name="name">Extractos ricos en Tocoferol</field>
+            <field name="description">Mezcla de tocoferoles naturales (Vitamina E).</field>
+            <field name="code">E-306</field>        
+            <field name="category">Antioxidante</field>
+        </record>
+        <record id="additives_name_20" model="additives.name">
+            <field name="name">Butilhidroxianisol (BHA)</field>
+            <field name="description">Antioxidante sintético para grasas y aceites.</field>
+            <field name="code">E-320</field>        
+            <field name="category">Antioxidante</field>
+        </record>
+        <record id="additives_name_21" model="additives.name">
+            <field name="name">Lecitinas</field>
+            <field name="description">Natural de soja o huevo. Emulsionante y antioxidante.</field>
+            <field name="code">E-322</field>        
+            <field name="category">Emulgente / Antioxidante</field>
+        </record>
+        <record id="additives_name_22" model="additives.name">
+            <field name="name">Ácido Láctico</field>
+            <field name="description">Controla la acidez, actúa como conservante suave. Común en encurtidos y lácteos.</field>
+            <field name="code">E-270</field>        
+            <field name="category">Regulador de Acidez / Conservante</field>
+        </record>
+
+        <record id="additives_name_23" model="additives.name">
+            <field name="name">Ácido Cítrico</field>
+            <field name="description">Acidificante muy común en bebidas y dulces.</field>
+            <field name="code">E-330</field>        
+            <field name="category">Regulador de Acidez</field>
+        </record>
+
+        <record id="additives_name_24" model="additives.name">
+            <field name="name">Ácido Tartárico</field>
+            <field name="description">Acidificante natural de la uva.</field>
+            <field name="code">E-334</field>        
+            <field name="category">Regulador de Acidez</field>
+        </record>
+
+        <record id="additives_name_25" model="additives.name">
+            <field name="name">Ácido Fosfórico</field>
+            <field name="description">Acidificante en bebidas colas.</field>
+            <field name="code">E-338</field>        
+            <field name="category">Regulador de Acidez</field>
+        </record>
+
+        <record id="additives_name_26" model="additives.name">
+            <field name="name">Fosfatos de Sodio</field>
+            <field name="description">Regula pH y actúa como sal emulsificante.</field>
+            <field name="code">E-339</field>        
+            <field name="category">Regulador de Acidez / Emulgente</field>
+        </record>
+
+        <record id="additives_name_27" model="additives.name">
+            <field name="name">Ácido Algínico</field>
+            <field name="description">Espesante extraído de algas.</field>
+            <field name="code">E-400</field>        
+            <field name="category">Espesante / Estabilizante</field>
+        </record>
+
+        <record id="additives_name_28" model="additives.name">
+            <field name="name">Alginato de Sodio</field>
+            <field name="description">Espesante y estabilizante de algas.</field>
+            <field name="code">E-401</field>        
+            <field name="category">Espesante / Estabilizante</field>
+        </record>
+
+        <record id="additives_name_29" model="additives.name">
+            <field name="name">Agar</field>
+            <field name="description">Extraído de algas. Forma geles firmes.</field>
+            <field name="code">E-406</field>        
+            <field name="category">Espesante / Gelificante</field>
+        </record>
+
+        <record id="additives_name_30" model="additives.name">
+            <field name="name">Carragenanos</field>
+            <field name="description">Extraído de algas rojas. Da textura cremosa.</field>
+            <field name="code">E-407</field>        
+            <field name="category">Espesante / Estabilizante</field>
+        </record>
+
+
+        <record id="additives_name_31" model="additives.name">
+            <field name="name">Goma de Algarrobo</field>
+            <field name="description">Espesante de semillas.</field>
+            <field name="code">E-410</field>        
+            <field name="category">Espesante / Estabilizante</field>
+        </record>
+
+        <record id="additives_name_32" model="additives.name">
+            <field name="name">Goma Guar</field>
+            <field name="description">Espesante de origen vegetal.</field>
+            <field name="code">E-412</field>        
+            <field name="category">Espesante / Estabilizante</field>
+        </record>
+
+        <record id="additives_name_33" model="additives.name">
+            <field name="name">Goma Xantana</field>
+            <field name="description">Espesante muy eficiente de fermentación bacteriana.</field>
+            <field name="code">E-415</field>        
+            <field name="category">Espesante / Estabilizante</field>
+        </record>
+
+        <record id="additives_name_34" model="additives.name">
+            <field name="name">Glicerol</field>
+            <field name="description">Mantiene la humedad en los alimentos.</field>
+            <field name="code">E-422</field>        
+            <field name="category">Humectante</field>
+        </record>
+
+        <record id="additives_name_35" model="additives.name">
+            <field name="name">Pectinas</field>
+            <field name="description">Extraída de frutas. Forma geles (mermeladas).</field>
+            <field name="code">E-440</field>        
+            <field name="category">Gelificante / Estabilizante</field>
+        </record>
+
+        <record id="additives_name_36" model="additives.name">
+            <field name="name">Carboximetilcelulosa de Sodio (CMC)</field>
+            <field name="description">Espesante sintético derivado de la celulosa.</field>
+            <field name="code">E-466</field>        
+            <field name="category">Espesante / Estabilizante</field>
+        </record>
+
+        <record id="additives_name_37" model="additives.name">
+            <field name="name">Carbonato de Sodio</field>
+            <field name="description">Usado en levaduras químicas y para ajustar el pH.</field>
+            <field name="code">E-500(i)</field>        
+            <field name="category">Regulador de Acidez / Leudante</field>
+        </record>
+
+        <record id="additives_name_38" model="additives.name">
+            <field name="name">Carbonato de Amonio</field>
+            <field name="description">Leudante en galletas y repostería.</field>
+            <field name="code">E-503(i)</field>        
+            <field name="category">Regulador de Acidez / Leudante</field>
+        </record>
+
+        <record id="additives_name_39" model="additives.name">
+            <field name="name">Ferrocianuro de Potasio</field>
+            <field name="description">Evita que la sal y otros polvos se apelmacen.</field>
+            <field name="code">E-536</field>        
+            <field name="category">Antiapelmazante</field>
+        </record>
+
+        <record id="additives_name_40" model="additives.name">
+            <field name="name">Dióxido de Silicio</field>
+            <field name="description">Evita el apelmazamiento en polvos.</field>
+            <field name="code">E-551</field>        
+            <field name="category">Antiapelmazante</field>
+        </record>
+
+        <record id="additives_name_41" model="additives.name">
+            <field name="name">Glutamato Monosódico (GMS)</field>
+            <field name="description">Potencia el sabor umami en alimentos salados.</field>
+            <field name="code">E-621</field>        
+            <field name="category">Potenciador del Sabor</field>
+        </record>
+
+        <record id="additives_name_42" model="additives.name">
+            <field name="name">Guanilato Disódico</field>
+            <field name="description">Sinérgico con el GMS, potencia aún más el sabor.</field>
+            <field name="code">E-627</field>        
+            <field name="category">Potenciador del Sabor</field>
+        </record>
+
+        <record id="additives_name_43" model="additives.name">
+            <field name="name">Inosinato Disódico</field>
+            <field name="description">Sinérgico con el GMS.</field>
+            <field name="code">E-631</field>        
+            <field name="category">Potenciador del Sabor</field>
+        </record>
+
+        <record id="additives_name_44" model="additives.name">
+            <field name="name">5'-Ribonucleótidos de Sodio</field>
+            <field name="description">Mezcla de 627 y 631.</field>
+            <field name="code">E-635</field>        
+            <field name="category">Potenciador del Sabor</field>
+        </record>
+
+        <record id="additives_name_45" model="additives.name">
+            <field name="name">Cera de Abejas</field>
+            <field name="description">Recubre frutas para dar brillo y proteger.</field>
+            <field name="code">E-901</field>        
+            <field name="category">Agente de Recubrimiento</field>
+        </record>
+
+        <record id="additives_name_46" model="additives.name">
+            <field name="name">Nitrógeno</field>
+            <field name="description">Gas inerte para desplazar el oxígeno y conservar.</field>
+            <field name="code">E-941</field>        
+            <field name="category">Gas de Envasado</field>
+        </record>
+
+        <record id="additives_name_47" model="additives.name">
+            <field name="name">Acesulfamo K</field>
+            <field name="description">Edulcorante artificial sin calorías.</field>
+            <field name="code">E-950</field>        
+            <field name="category">Edulcorante</field>
+        </record>
+
+        <record id="additives_name_48" model="additives.name">
+            <field name="name">Aspartamo</field>
+            <field name="description">Edulcorante artificial bajo en calorías.</field>
+            <field name="code">E-951</field>        
+            <field name="category">Edulcorante</field>
+        </record>   
+
+        <record id="additives_name_49" model="additives.name">
+            <field name="name">Sucralosa</field>
+            <field name="description">Edulcorante artificial derivado del azúcar, sin calorías.</field>
+            <field name="code">E-955</field>        
+            <field name="category">Edulcorante</field>
+        </record>
+
+        <record id="additives_name_50" model="additives.name">
+            <field name="name">Glucósidos de Esteviol</field>
+            <field name="description">Edulcorante natural de origen vegetal (Stevia).</field>
+            <field name="code">E-960</field>        
+            <field name="category">Edulcorante</field>
+        </record>
+
+        <record id="additives_name_51" model="additives.name">
+            <field name="name">Xilitol</field>
+            <field name="description">Edulcorante de alcohol de azúcar, no provoca caries.</field>
+            <field name="code">E-967</field>        
+            <field name="category">Edulcorante / Humectante</field>
+        </record>
+
+        <record id="additives_name_52" model="additives.name">
+            <field name="name">Polidextrosa</field>
+            <field name="description">Fibra soluble que aporta volumen y textura.</field>
+            <field name="code">E-1200</field>        
+            <field name="category">Humectante / Estabilizante</field>
+        </record>
+
+        <record id="additives_name_53" model="additives.name">
+            <field name="name">Almidón Oxidado</field>
+            <field name="description">Almidón modificado para mejorar su función.</field>
+            <field name="code">E-1404</field>        
+            <field name="category">Espesante / Estabilizante</field>
+        </record>
+
+
+        <record id="additives_name_54" model="additives.name">
+            <field name="name">Fosfato de Dialmidón Hidroxipropilado</field>
+            <field name="description">Almidón modificado para soportar altas temperaturas.</field>
+            <field name="code">E-1442</field>        
+            <field name="category">Espesante / Estabilizante</field>
+        </record>
+
+        
+    </data>
+</odoo>
