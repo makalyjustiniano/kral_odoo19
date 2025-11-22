@@ -15,6 +15,7 @@
                                 <field name="brand"/>
                                 <field name ="product_line_product" widget="many2one_tags"/>
                                 <field name ="product_line_group" widget="many2one_tags"/>
+                                <field name="senasag_name"></field>
                                 <field name="limit_discount_percentage" invisible="sale_ok != True" />
                                 <field name="capacidad_almacenamiento"/>
                                 <field name="modo_conservacion"/>

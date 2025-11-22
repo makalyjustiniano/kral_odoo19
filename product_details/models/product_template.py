@@ -38,7 +38,7 @@ class ProductTemplate(models.Model):
     #info_nutricional = fields.Html(string="Información Nutricional", help="Información Nutricional del producto.")
 
     limit_discount_percentage = fields.Float(string="Porcentaje Límite de Descuento %", help="Porcentaje límite de descuento para el producto.")
-
+    senasag_name = fields.Char(string="Nombre Senasag", help='Nombre Senasag')
 
     ## Consumption Table
     form_consumption = fields.Text(string="Forma de Consumo", help="Forma de consumo del producto.")
