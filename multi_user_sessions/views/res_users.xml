@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+        
+        <!-- Form view for "model" -->
+        <record id="view_multi_user_session_form" model="ir.ui.view">
+            <field name="name">Ajuste multi usuarios por session</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form" />
+            <field name="arch" type="xml">
+                
+                <xpath expr="//page[@name='preferences']/group/group[last()]" position="before">
+                    <group name='multi_user_group' string="Ajustes Multi Usuario">
+                        <field name="enable_multi_user" readonly="active == False" invisible="active == False"/>
+                        <field name="reference_user"  readonly="active == True"  invisible="active == True"/>
+                        <field name="muip" invisible='reference_user == False or active == True' />                        
+                        <field name="last_muip_transient" widget="CopyClipboardChar" invisible='reference_user == True or active== False' />                        
+                    
+                    </group>
+
+                </xpath>
+                
+            </field>
+        </record>
+        
+        
+
+    </data>
+</odoo>

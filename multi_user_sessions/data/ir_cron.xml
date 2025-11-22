@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="ir_cron_delete_old_sessions" model="ir.cron">
+            <field name="name">Eliminar multi sesiones antiguas</field>
+            <field name="interval_number">7</field>
+            <field name="interval_type">days</field>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=7)).replace(hour=0, minute=0, second=0, microsecond=0).strftime('%Y-%m-%d %H:%M:%S')" />
+            <field name="model_id" ref="model_user_session"/>
+            <field name="code">model.delete_old_sessions()</field>
+            <field name="state">code</field>
+        </record>
+
+    </data>
+</odoo>

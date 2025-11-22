@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="view_multi_user_session_sale_order_tree" model="ir.ui.view">
+            <field name="name">Modificacion de vista para multi usuarios</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.sale_order_view_search_inherit_quotation" />
+            <field name="arch" type="xml">
+                
+                <xpath expr="//filter[@name='my_quotation']" position="attributes">
+                    <attribute name="domain">[('create_uid', '=', uid)]</attribute>
+                </xpath>
+                
+            </field>
+        </record>
+
+    </data>
+</odoo>

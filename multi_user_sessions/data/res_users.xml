@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id='multi_user_001' model='res.users' >
+            <field name="name">Multi Usuario 1</field>
+            <field name="company_id" ref="base.main_company" />
+            <field name="login">multiuser</field>
+            <field name="reference_user" eval="True" />
+            <field name="active" eval="False" />
+        </record>
+
+    </data>
+</odoo>
