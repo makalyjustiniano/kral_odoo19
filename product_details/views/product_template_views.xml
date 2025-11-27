@@ -20,7 +20,7 @@
                                 <field name="capacidad_almacenamiento"/>
                                 <field name="modo_conservacion"/>
                                 <field name="procedencia"/>
-                                <field name="vida_util"/>
+                                <field name="vida_util" string="Vida útil (días)"/>
                                 <field name="detalles_mataterias_primas" invisible="1"/>
                             </group>
                             <group string="Medidas y Pesos">
