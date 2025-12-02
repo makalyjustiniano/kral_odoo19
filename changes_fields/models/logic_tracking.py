@@ -57,7 +57,7 @@ class ExtendedMailThread(models.AbstractModel):
 
 
                         if field_obj.type in ['one2many', 'many2many']:
-                            old_value = old_value.display_name
+                            old_value = old_value[-1].display_name
 
                         if field_obj.type == 'html':
                             changes.append((label, old_disp, new_disp))
