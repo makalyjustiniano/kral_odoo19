@@ -7,7 +7,6 @@ import re
 class AccountPaymentExtension(models.TransientModel):
     _inherit = 'account.payment.register'
 
-
     kral_account_id = fields.Many2one('account.account', string="Cuenta Contable", help="Cuenta contable asociada al pago.", domain="[('account_type','=','asset_cash')]" )
 
     def action_create_payments(self):
@@ -33,7 +32,6 @@ class AccountPaymentExtension(models.TransientModel):
                     payment_lines_out[0].write({
                         'payment_account_id': wizard.kral_account_id.id
                     })
-
 
         payments = super(AccountPaymentExtension, self).action_create_payments()
 
