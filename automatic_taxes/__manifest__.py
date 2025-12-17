@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "Accounting plugin: Add analytic distribution automatically to the account.move.line model",
+    "name": "Accounting plugin: Add automatic Account Taxes Retention",
     "version": "19.0.1.0.0",
     "category": "Accounting/Accounting",
-    "summary": "Accounting plugin: Add analytic distribution automatically to the account.move.line model",
+    "summary": "Accounting plugin: Add automatic Account Taxes Retention",
     "description": """
-        Accounting plugin: Add analytic distribution automatically to the account.move.line model
+        Accounting plugin: Add automatic Account Taxes Retention
     """,
     "author": "Anthony Amutari Justiniano.",
     "website": "https://kral.com.bo",
-    "depends": ['base', 'account', 'account_accountant', 'sale_management', 'purchase'],
+    "depends": ['base', 'account', 'account_accountant'],
     "data": [
-        'views/product_template_views.xml',
+        'views/account_tax_views.xml',
+        #'views/account_payment_register_views.xml',
 
     ],
     'assets': {
