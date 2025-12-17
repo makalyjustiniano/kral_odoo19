@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_order_form_inherit_file_custom">
+            <field name="name">move.account.from.inherit.file_custom</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button
+                        name="%(dt_file_custom.action_report_mi_modelo)d"
+                        type="action"
+                        string="Comprobante"
+                        class="btn-primary"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

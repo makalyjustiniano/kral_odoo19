@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- PLANTILLA PDF -->
+    <template id="report_mi_modelo_document">
+        <t t-call="web.external_layout">
+            <t t-foreach="docs" t-as="doc">
+                <div class="page">
+
+                    <h2>Reporte - <span t-field="doc.name"/></h2>
+
+                    <p>
+                        Fecha:
+                        <span t-field="doc.create_date"/>
+                    </p>
+
+                    <table class="table table-sm mt32">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th class="text-end">Cantidad</th>
+                                <th class="text-end">Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="doc.order_line" t-as="line">
+                                <td>
+                                    <span t-field="line.product_id.display_name"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-field="line.product_uom_qty"/>
+                                </td>
+                                <td class="text-end">
+                                    <span t-field="line.price_unit"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>
