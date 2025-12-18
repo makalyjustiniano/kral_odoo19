@@ -163,7 +163,7 @@
                 <div t-if='o.journal_id.type == "sale"'
                     style="text-align: center; margin-top: 25px;">
                     <h5 style="margin-top: 20px; font-weight: 900;">
-                        COMPROBANTE DE INGRESO
+                        COMPROBANTE DE TRASPASO
                     </h5>
                 </div>
 
