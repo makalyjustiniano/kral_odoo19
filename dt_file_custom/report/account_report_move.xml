@@ -39,7 +39,7 @@
     <template id="report_saleorder_document">
         <t t-call="dt_file_custom.report_external_layout">
             <t t-esc-lang="es_BO" t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
-            <t t-call="dt_file_custom.report_mi_modelo_document" />
+            <t t-call="dt_file_custom.report_comprobante_accounting" />
         </t>
     </template>
     <template id="report_external_layout">
@@ -89,7 +89,7 @@
             </div>
         </div>
     </template>
-    <template id="report_mi_modelo_document">
+    <template id="report_comprobante_accounting">
         <style>
             th, td{
             border: none;
@@ -127,24 +127,46 @@
             </div>
            
             <div>
-                <div t-if='o.payment_type2 == "outbound"'
+                <div t-if='o.journal_id.type == "purchase"'
+                    style="text-align: center; margin-top: 25px;">
+                    <h5 style="margin-top: 20px; font-weight: 900;">
+                        COMPROBANTE DE TRASPASO
+                    </h5>
+                </div>
+
+                <div t-if='o.payment_type2 == "outbound" and o.journal_id.type == "bank"'
                     style="text-align: center; margin-top: 25px;">
                     <h5 style="margin-top: 20px; font-weight: 900;">
                         COMPROBANTE DE EGRESO
                     </h5>
                 </div>
+                
+
+                <!-- 
+
                 <div t-if='o.payment_type2 == "inbound_diario" or o.payment_type2 == "outbound_diario"'
                     style="text-align: center; margin-top: 25px;">
                     <h5 style="margin-top: 20px; font-weight: 900;">
                         COMPROBANTE DE DIARIO
                     </h5>
                 </div>
-                <div t-if='o.payment_type2 == "inbound"'
+
+                -->
+                <div t-if='o.payment_type2 == "inbound" and o.journal_id.type == "bank"'
                     style="text-align: center; margin-top: 25px;">
                     <h5 style="margin-top: 20px; font-weight: 900;">
                         COMPROBANTE DE INGRESO
                     </h5>
                 </div>
+
+
+                <div t-if='o.journal_id.type == "sale"'
+                    style="text-align: center; margin-top: 25px;">
+                    <h5 style="margin-top: 20px; font-weight: 900;">
+                        COMPROBANTE DE INGRESO
+                    </h5>
+                </div>
+
                 <span style="font-weight: 900;"> Fecha Contable:
                     <span style="font-weight: normal;">
                         <span t-field="o.date_char"></span>

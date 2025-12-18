@@ -11,19 +11,6 @@ import math
 class AccountMoveCustom(models.Model):
     _inherit = 'account.move'
 
-
-    
-    #def report_account_account_btn (self):
-    #    self.ensure_one()
-    #    return self.env.ref('dt_file_custom.report_account_account_document').report_action(self)
-
-    
-    def report_account_account_btn(self):
-        self.ensure_one()
-        return self.env.ref('report_account_account_document').report_action(self)
-
-
-
     def format_decimal(self, value):
         """Formatea un número decimal para el reporte"""
         return '{:,.2f}'.format(value).replace(',', 'X').replace('.', ',').replace('X', '.')
