@@ -47,25 +47,11 @@ class AccountMoveCustom(models.Model):
     ], string="Registro Comprobante" , default="")
 
 
-    @api.constrains('currency_id')
-    def _get_currency_value(self):
-        for record in self:
-            record.value_currency = 1
-
     @api.onchange('currency_id')
     def _get_currency_value(self):
         for record in self:
             record.value_currency = 1
 
-    @api.constrains('currency_id')
-    def _get_currency_value_dls(self):
-        data = http.request.env['res.currency'].search_read([('name', '=', 'USD')], limit=1)
-        if data:
-
-            for record in self:
-                record.value_currency_dls = data.rate_ids[0].inverse_company_rate
-        else:
-            self.value_currency_dls = 1
 
     @api.onchange('currency_id')
     def _get_currency_value_dls(self):
@@ -119,22 +105,6 @@ class AccountMoveCustom(models.Model):
                 record.pivot_total_debit = total
                 record.pivot_total_credit = totalCredit
 
-
-    @api.constrains('currency_id')
-    def _get_total_literal(self):
-        data2 =  http.request.env['res.currency'].search_read([('name', '=', 'USD')], limit=1)
-        for record in self:
-            price = record.total_debit
-            rounded_price = round(price, 2)
-            int_rounded_price = int(rounded_price)
-            text = num2words(int_rounded_price, lang='es')
-            text2 = num2words(int_rounded_price, lang='es')
-            record.total_literal = text.title()
-            record.pivot_total_literal = text2.title()
-            if data2:
-                record.divisa_usd = 'USD'
-            else:
-                record.divisa_usd = "none"
 
     @api.onchange('currency_id')
     def _get_total_literal(self):
@@ -208,27 +178,12 @@ class AccountMoveCustom(models.Model):
 
             record.date_char = str(record.date.day) + "/" + str(record.date.month) + "/" + str(record.date.year)
 
-    @api.constrains('credit, debit')
-    def _get_user(self):
-        for record in self:
-            user = request.env.user
-            record.user_act = user.name
 
     @api.constrains('credit, debit')
     def _get_user(self):
         for record in self:
             user = request.env.user
             record.user_act = user.name
-
-    @api.constrains('credit, debit')
-    def _get_decimal(self):
-        for record in self:
-            price = record.pivot_total_debit
-            rounded_price = round(price, 2)
-            parte_fraccionaria, parte_entera = math.modf(price)
-            decimales = abs(int(parte_fraccionaria * 100))
-            record.decimal_value = decimales
-
 
 
     @api.constrains('credit, debit')
@@ -237,6 +192,7 @@ class AccountMoveCustom(models.Model):
             price = record.pivot_total_debit
             rounded_price = round(price, 2)
             parte_fraccionaria, parte_entera = math.modf(price)
+            parte_fraccionaria = round(parte_fraccionaria, 2)
             decimales = abs(int(parte_fraccionaria * 100))
 
             record.decimal_value = decimales
@@ -253,30 +209,6 @@ class AccountMoveCustom(models.Model):
         for record in self:
             record.address_company = phone
             record.phone_company = address
-
-
-    @api.constrains('credit, debit')
-    def get_company_info(self):
-        company_id = self.env.user.company_id.id
-        company = self.env['res.company'].browse(company_id)
-        phone = ""
-        address = ""
-        phone = company.phone
-        address = company.street
-        for record in self:
-            record.address_company = address
-            record.phone_company = phone
-
-
-    @api.constrains('credit, debit')
-    def _compute_invoice_lines_count(self):
-        contador = 0
-        for rec in self:
-            for item in rec.line_ids:
-                contador += 1
-            rec.invoice_lines_count = contador
-            contador = 0
-
 
 
     @api.constrains('credit, debit')
