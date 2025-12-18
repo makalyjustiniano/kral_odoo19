@@ -18,7 +18,7 @@
         #'views/account_moveline_details_views.xml',
         #report/report_ing_egre_.xml',
         'report/account_report_move.xml',
-        'views/account_move_details_views.xml',
+        #'views/account_move_details_views.xml',
 
         #'report/account_report_template.xml',
         #'report/report_basic.xml',
