@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="mail.Composer" t-inherit-mode="extension">
+        <xpath expr="//*[hasclass('o-mail-Composer-inputContainer')]" position="inside">
+            <button class="btn btn-primary ms-2" t-on-mousedown="() => this.onStartVoiceRecognition()" t-on-mouseup="() => this.onStopVoiceRecognition()">IA Voice Action</button>
+        </xpath>
+    </t>
+</templates>
