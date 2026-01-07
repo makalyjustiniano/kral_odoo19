@@ -3,7 +3,6 @@ from odoo.exceptions import UserError, ValidationError
 from odoo import api, fields, models, _
 import re
 
-
 class AccountPaymentExtension(models.Model):
     _inherit = 'account.journal'
 
