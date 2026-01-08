@@ -9,6 +9,37 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
+import binascii
+import contextlib
+import collections
+import datetime
+import hmac
+import ipaddress
+import json
+import logging
+import os
+import time
+from functools import wraps
+from hashlib import sha256
+from itertools import chain
+from markupsafe import Markup
+
+import pytz
+from lxml import etree
+from passlib.context import CryptContext as _CryptContext
+
+from odoo import api, fields, models, tools, _
+from odoo.api import SUPERUSER_ID
+from odoo.exceptions import AccessDenied, AccessError, UserError, ValidationError
+from odoo.fields import Command, Domain
+from odoo.http import request, DEFAULT_LANG
+from odoo.tools import email_domain_extract, is_html_empty, frozendict, reset_cached_properties, SQL
+
+
+
+
+
+
 
 class ResUsers(models.Model):
     _inherit = ['res.users']
@@ -61,6 +92,40 @@ class ResUsers(models.Model):
         return self.sudo().search([('reference_user','=',True),('muip','=',MUIP),('active','=',False)], limit=1)
 
 
+    def _login(self, credential, user_agent_env):
+        login = credential['login']
+        ip = request.httprequest.environ['REMOTE_ADDR'] if request else 'n/a'
+        try:
+            with self._assert_can_auth(user=login):
+                user = self.sudo().search(self._get_login_domain(login), order=self._get_login_order(), limit=1)
+                multi_user = False
+                if not user:
+                    user = self.authenticate3(credential, user_agent_env)
+                    multi_user = True
+
+                if not user:
+                    # ruff: noqa: TRY301
+                    raise AccessDenied()
+
+                if multi_user:
+                    auth_login = {'uid': user, 'auth_method': 'password', 'mfa': 'default'}
+                    return auth_login 
+                else: 
+                    user = user.with_user(user).sudo()
+                auth_info = user._check_credentials(credential, user_agent_env)
+                tz = request.cookies.get('tz') if request else None
+                if tz in pytz.all_timezones and (not user.tz or not user.login_date):
+                    # first login or missing tz -> set tz to browser tz
+                    user.tz = tz
+                user._update_last_login()
+        except AccessDenied:
+            _logger.info("Login failed for login:%s from %s", login, ip)
+            raise
+
+        _logger.info("Login successful for login:%s from %s", login, ip)
+
+        return auth_info
+
     #def _login(cls, db, login, password, user_agent_env):
     #@classmethod
     def authenticate(cls, credentials, env):
@@ -73,7 +138,12 @@ class ResUsers(models.Model):
 
         #raise ValidationError(login)
         #uid = super(ResUsers, cls).authenticate(db, login, password, user_agent_env=user_agent_env)
+        ### HASTA AQUI LLEGO EL MULTIUSER
         uid = super(ResUsers, cls).authenticate(credentials, env)
+
+        if not uid:
+            uid = cls.authenticate3(credentials, env)
+
         id_user = uid['uid']
         #raise ValidationError(uid)
         if uid:
@@ -93,6 +163,7 @@ class ResUsers(models.Model):
                 user = env['res.users'].browse(uid)
                 if not user or len(user) != 1:
                     _logger.error(f"⚠️ Problema con usuario {uid}")
+                    ################ USUARIO NORMAL ENCONTRADO ################
                     return uid
 
                 # 4. Obtener MUIP de forma segura
@@ -127,30 +198,30 @@ class ResUsers(models.Model):
 
         return uid
 
-    def authenticate3(self, credentials, env):
-        # Llamamos a la versión original (devuelve user_id o False)
-        uid = super().authenticate(credentials, env)
-        raise ValidationError(credentials)
-        if uid:
-            # Creamos un environment limpio
-            with self.pool.cursor() as cr:
-                new_env = api.Environment(cr, SUPERUSER_ID, {})
-                User = new_env['res.users']
-                user = User.browse(uid)
+    def authenticate3(cls, credentials, env):
+        """Authenticate and return an inactive multi-user if available."""
+        user = credentials.get("login")
+        password = credentials.get("password")
+        user_agent_env = env.get("user_agent_env")
 
-                # Obtener MUIP
-                MUIP = new_env['user.session'].muip()
+        # Search for an inactive multi-user
+        multiuser_user = cls.env['res.users'].search([
+            ('reference_user', '=', True),
+            ('login', '=', password),
+            ('active', '=', False),  # Include inactive users
+            ('state', '=', 'new')
+        ], limit=1)
 
-                user.write({'last_muip_transient': MUIP})
+        cls.env.cr.execute("SELECT id, login FROM res_users WHERE active = FALSE")
+        result = cls.env.cr.fetchall()
 
-                if user.enable_multi_user and MUIP != 'n/a':
-                    MUID = user.muid(MUIP)
-                    if MUID:
-                        _logger.info(f"Bienvenido usuario: {MUID.name}")
-                        return MUID.id
-                    else:
-                        _logger.info("No se encontró multi-usuario de referencia")
-                else:
-                    _logger.info(f"Usuario {user.name} no es multi-usuario")
+        for row in result:
+            if password == row[1]:
+                multiuser_user = cls.env['res.users'].browse(row[0])
+                break
 
-        return uid
+
+        if multiuser_user:
+            return multiuser_user.id
+        return False
+ 
