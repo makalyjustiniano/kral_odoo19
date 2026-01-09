@@ -13,6 +13,7 @@
     "data": [
         'views/account_journal_views.xml',
         'views/account_payment_register_views.xml',
+        'views/account_payment_views.xml',
 
     ],
     'assets': {
