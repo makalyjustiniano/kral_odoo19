@@ -116,6 +116,10 @@ class AccountAgedPartnerBalanceReportHandler(models.AbstractModel):
             if current_groupby == 'id':
                 query_res = query_res_lines[0] # We're grouping by id, so there is only 1 element in query_res_lines anyway
                 currency = self.env['res.currency'].browse(query_res['currency_id'][0]) if len(query_res['currency_id']) == 1 else None
+                ## TRAER EL PAGO SU MONTO
+                balance = self.env['account.payment'].browse(query_res['payment_id']).mapped('amount')
+                move = self.env['account.move'].browse(query_res['move_id']).mapped('amount_total')
+            
                 rslt.update({
                     'invoice_date': query_res['invoice_date'][0] if len(query_res['invoice_date']) == 1 else None,
                     'due_date': query_res['due_date'][0] if len(query_res['due_date']) == 1 else None,
@@ -123,7 +127,10 @@ class AccountAgedPartnerBalanceReportHandler(models.AbstractModel):
                     'currency_id': query_res['currency_id'][0] if len(query_res['currency_id']) == 1 else None,
                     'currency': currency.display_name if currency else None,
                     'account_name': query_res['account_name'][0] if len(query_res['account_name']) == 1 else None,
-                    'account_id': query_res['account_id'][0] if len(query_res['account_id']) == 1 else None,
+                    'account_code2': query_res['account_code2'][0] if len(query_res['account_code2']) == 1 else None,
+                    'balance': balance[0] if len(balance) == 1 else None,
+                    'move_id': move[0] if len(move) == 1 else None,
+                    #'account_id': query_res['account_id'][0] if len(query_res['account_id']) == 1 else None,
                     'total': None,
                     'has_sublines': True,
 
@@ -138,7 +145,10 @@ class AccountAgedPartnerBalanceReportHandler(models.AbstractModel):
                     'currency_id': None,
                     'currency': None,
                     'account_name': None,
-                    'account_id': None,
+                    'account_code2': None,
+                    #'account_id': None,
+                    'move_id': None,
+                    'balance': None,
                     'total': sum(rslt[f'period{i}'] for i in range(len(periods))),
                     'has_sublines': True,
                 })
@@ -158,6 +168,7 @@ class AccountAgedPartnerBalanceReportHandler(models.AbstractModel):
         account_alias = query.left_join(lhs_alias='account_move_line', lhs_column='account_id', rhs_table='account_account', rhs_column='id', link='account_id')
         account_code = self.env['account.account']._field_to_sql(account_alias, 'code', query)
         account_code2 = self.env['account.account']._field_to_sql(account_alias, 'name', query)
+        
 
 
         always_present_groupby = SQL("period_table.period_index")
@@ -186,6 +197,7 @@ class AccountAgedPartnerBalanceReportHandler(models.AbstractModel):
         )
 
         tail_query = report._get_engine_query_tail(offset, limit)
+        move_id = None
         query = SQL(
             """
             WITH period_table(date_start, date_stop, period_index) AS (%(period_table)s)
@@ -198,6 +210,7 @@ class AccountAgedPartnerBalanceReportHandler(models.AbstractModel):
                     + COALESCE(SUM(part_credit.credit_amount_currency), 0)
                 ) AS amount_currency,
                 ARRAY_AGG(DISTINCT account_move_line.partner_id) AS partner_id,
+                ARRAY_AGG(DISTINCT account_move_line.move_id) AS move_id,
                 ARRAY_AGG(account_move_line.payment_id) AS payment_id,
                 ARRAY_AGG(DISTINCT account_move_line.invoice_date) AS invoice_date,
                 ARRAY_AGG(DISTINCT COALESCE(account_move_line.%(aging_date_field)s, account_move_line.date)) AS report_date,
@@ -258,6 +271,7 @@ class AccountAgedPartnerBalanceReportHandler(models.AbstractModel):
 
             %(tail_query)s
             """,
+            move_id=move_id,
             account_code=account_code,
             account_code2=account_code2,
             period_table=period_table,
