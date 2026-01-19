@@ -150,7 +150,7 @@ class ExtensionAccounting(models.Model):
             last_move = self.env['account.move'].search(
                 domain,
                 order='id desc', 
-                limit=1
+                
                 
             )
             return last_move if last_move else False
@@ -278,11 +278,18 @@ class ExtensionAccounting(models.Model):
                     account_empty = 0
                     firts_move = move_ids[:1]
                     last_move = rec._get_last_sequence_month_last()
+
+                    last_move = last_move.sorted(
+                            key=lambda m: int(re.search(r'/(\d+)$', m.name).group(1))
+                        )
+                    
+                    last_move = last_move[-1] if last_move else False
+
                     if firts_move.id != last_move.id:
                         last_match = re.search(r'/0*(\d+)$', last_move.name)
                         last_match_pivot = last_match.group(1) if last_match  else False
                         ### format
-                        detect_format = re.match(r'(.+)/[^/]+$', firts_move.name)
+                        detect_format = re.match(r'(.+)/[^/]+$' , firts_move.name)
                         prefix = detect_format.group(1)
 
                         match_first = firts_move.name
@@ -290,6 +297,11 @@ class ExtensionAccounting(models.Model):
                         regex_first = regex_first.group(1)
 
                         contador = int(regex_first)
+
+                        move_ids = move_ids.sorted(
+                            key=lambda m: int(re.search(r'/(\d+)$', m.name).group(1))
+                        )
+
                         for move_id in move_ids:
 
                             match = re.search(r'/0*(\d+)$', move_id.name)
@@ -320,7 +332,7 @@ class ExtensionAccounting(models.Model):
                                 rec.name = new_sequence
                                 break             
 
-                            contador += contador
+                            contador += 1
                     else:
                         raise ValidationError(f'No hay reservas')
 
