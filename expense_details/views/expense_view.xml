@@ -5,7 +5,10 @@
             <field name="model">hr.expense</field>
             <field name="inherit_id" ref="hr_expense.hr_expense_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='analytic_distribution']" position="after">
+                <xpath expr="//field[@name='analytic_distribution']" position="replace">
+                    <field name="analytic_distribution" widget="analytic_distribution" invisible="1"/>
+                    <field name="kral_product_tmpl_id"  />
+                    <field name="kral_distribution_analytic" widget="kral_analytic_distribution" />
                     <field name="kral_is_partner"/>
                     <field name="kral_expense_partner_id" invisible="kral_is_partner"/>
                     <field name="kral_expense_partner_text" invisible="not kral_is_partner"/>

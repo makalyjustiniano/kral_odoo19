@@ -9,7 +9,7 @@
     """,
     "author": "Anthony Amutari Justiniano.",
     "website": "https://kral.com.bo",
-    "depends": ['base', 'mail', 'hr_expense'],
+    "depends": ['base', 'mail', 'hr_expense', 'product', 'stock', 'automatic_analytics'],
     "data": [
         'views/expense_view.xml',
     ],
