@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+        <record id="view_account_move_sequences_form_inherit" model="ir.ui.view">
+            <field name="name">account.move.sequences.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="kral_page_sequences" string="Reservar/Obtener Secuencias" invisible="state in ['posted', 'cancel']">
+                        <group name="sequences" string="Manejo de Secuencias">
+                            <group string="Reservar Secuencias">
+                                <field name="kral_last_sequence" invisible="state in ['posted', 'cancel']" 
+                             
+                                ></field>
+                                <field name="kral_reserved_sequences" invisible="state in ['posted', 'cancel']"/>
+                                <field name="kral_number_reserved" invisible="state in ['posted', 'cancel'] or not kral_reserved_sequences"/>
+                            </group>
+                            <group string="Obtener Secuencias Reservadas">
+                                <field name="kral_get_sequences_reserved" invisible="state in ['posted', 'cancel'] or kral_reserved_sequences"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

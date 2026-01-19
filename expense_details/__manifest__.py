@@ -12,6 +12,7 @@
     "depends": ['base', 'mail', 'hr_expense', 'product', 'stock', 'automatic_analytics'],
     "data": [
         'views/expense_view.xml',
+        'views/account_move_view.xml',
     ],
     "assets": {"web.assets_backend": [], "web.assets_common": []},
     "sequence": 1,
