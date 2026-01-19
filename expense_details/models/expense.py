@@ -20,6 +20,8 @@ class ExtensionAccounting(models.Model):
         domain = [
             ('journal_id', '=', self.journal_id.id),
             ('state', '=', 'posted'),
+            ('state', '!=', 'cancel'),
+            ('state', '!=', 'draft'),
         ]
 
         last_move = self.env['account.move'].search(
@@ -37,6 +39,8 @@ class ExtensionAccounting(models.Model):
         domain = [
             ('journal_id', '=', self.journal_id.id),
             ('state', '=', 'posted'),
+            ('state', '!=', 'cancel'),
+            ('state', '!=', 'draft'),
         ]
 
         last_move = self.env['account.move'].search(
@@ -54,6 +58,8 @@ class ExtensionAccounting(models.Model):
         domain = [
             ('journal_id', '=', self.journal_id.id),
             ('state', '=', 'posted'),
+            ('state', '!=', 'cancel'),
+            ('state', '!=', 'draft'),
         ]
 
         last_move = self.env['account.move'].search(
@@ -89,6 +95,9 @@ class ExtensionAccounting(models.Model):
 
     def action_post(self):
         for rec in self:
+            reserved_sequences = rec._get_last_sequence_used() 
+            date_month_move = rec._get_last_sequence_used_move()
+            first_sequence = rec._get_first_sequence_used()
             res = super().action_post()
 
             if rec.expense_ids:
@@ -119,16 +128,16 @@ class ExtensionAccounting(models.Model):
 
             if rec.kral_reserved_sequences and rec.kral_number_reserved > 0:
 
-                reserved_sequences = rec._get_last_sequence_used() 
+                #reserved_sequences = rec._get_last_sequence_used() 
                 rec.kral_get_sequences_reserved = False
                 match = re.search(r'/0*(\d+)$', reserved_sequences)
                 correlative = match.group(1) if match  else False
-                first_sequence = rec._get_first_sequence_used()
+                #first_sequence = rec._get_first_sequence_used()
                 detect_zeros = re.search(r'/((0*)(\d+))$', first_sequence)
                 detect_format = re.match(r'(.+)/[^/]+$', reserved_sequences)
                 prefix = detect_format.group(1)
 
-                date_month_move = rec._get_last_sequence_used_move()
+                #date_month_move = rec._get_last_sequence_used_move()
                 company = self.env.company 
                 month_fiscal = company.fiscalyear_last_month
                 day_fiscal = company.fiscalyear_last_day
@@ -145,6 +154,7 @@ class ExtensionAccounting(models.Model):
                                 prefix_month = '0' + str(prefix_month)
                                 prefix_pivot = re.match(r'(.+)/[^/]+$', prefix)
                                 prefix = prefix_pivot.group(1) + '/' + str(prefix_month)
+                                correlative = '1'
                             
                 if correlative and detect_zeros:
                     correlative = int(correlative) + rec.kral_number_reserved
