@@ -17,6 +17,7 @@
                             </group>
                             <group string="Obtener Secuencias Reservadas">
                                 <field name="kral_get_sequences_reserved" invisible="state in ['posted', 'cancel'] or kral_reserved_sequences"/>
+                                <field name="kral_get_month_before" invisible="state in ['posted', 'cancel'] or kral_reserved_sequences" ></field>
                             </group>
                         </group>
                     </page>

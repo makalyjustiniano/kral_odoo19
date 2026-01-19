@@ -3,16 +3,17 @@
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 import re
+from dateutil.relativedelta import relativedelta
 
 class ExtensionAccounting(models.Model):
     _inherit = 'account.move'
 
 
-    kral_number_reserved = fields.Integer(string='Números Reservados', tracking=True)
-    kral_reserved_sequences = fields.Boolean(string='Reservar Secuencias', tracking=True)
-    kral_get_sequences_reserved = fields.Boolean(string='Obtener Secuencias Reservadas', tracking=True)
+    kral_number_reserved = fields.Integer(string='Números Reservados')
+    kral_reserved_sequences = fields.Boolean(string='Reservar Secuencias')
+    kral_get_sequences_reserved = fields.Boolean(string='Obtener Secuencias Reservadas')
     kral_last_sequence = fields.Char(string='Última Secuencia')
-
+    kral_get_month_before = fields.Boolean(string="Obtener Secuencias Mes anterior")
 
     def _get_last_sequence_used_move(self):
         self.ensure_one()
@@ -91,6 +92,100 @@ class ExtensionAccounting(models.Model):
             reserved.append(sequence._next())
 
         return reserved
+
+    
+    def _get_last_sequence_month_current(self):
+        for rec in self:
+            today = fields.Date.today()
+            first_day_current_month = today.replace(day=1)
+            date_month_before_first_day = first_day_current_month 
+            if date_month_before_first_day.month == 2:
+                date_month_before = date_month_before_first_day.replace(day=28)
+                if date_month_before_first_day.year % 4 == 0 and (date_month_before_first_day.year % 100 != 0 or date_month_before_first_day.year % 400 == 0):
+                    date_month_before = date_month_before_first_day.replace(day=29)
+            elif date_month_before_first_day.month in [4, 6, 9, 11]:
+                date_month_before = date_month_before_first_day.replace(day=30)
+            else:
+                date_month_before = date_month_before_first_day.replace(day=31)
+
+            domain = [
+                ('journal_id', '=', rec.journal_id.id),
+                ('state', '=', 'posted'),
+                ('state', '!=', 'cancel'),
+                ('state', '!=', 'draft'),
+                ('date', '<=', date_month_before),
+                ('date', '>=', date_month_before_first_day),
+            ]
+
+            last_move = self.env['account.move'].search(
+                domain,
+                order='id asc',
+            )
+            return last_move if last_move else False
+
+
+    def _get_last_sequence_month_last(self):
+        for rec in self:
+            today = fields.Date.today()
+            first_day_current_month = today.replace(day=1)
+            date_month_before_first_day = first_day_current_month 
+            if date_month_before_first_day.month == 2:
+                date_month_before = date_month_before_first_day.replace(day=28)
+                if date_month_before_first_day.year % 4 == 0 and (date_month_before_first_day.year % 100 != 0 or date_month_before_first_day.year % 400 == 0):
+                    date_month_before = date_month_before_first_day.replace(day=29)
+            elif date_month_before_first_day.month in [4, 6, 9, 11]:
+                date_month_before = date_month_before_first_day.replace(day=30)
+            else:
+                date_month_before = date_month_before_first_day.replace(day=31)
+
+            domain = [
+                ('journal_id', '=', rec.journal_id.id),
+                ('state', '=', 'posted'),
+                ('state', '!=', 'cancel'),
+                ('state', '!=', 'draft'),
+                ('date', '<=', date_month_before),
+                ('date', '>=', date_month_before_first_day),
+            ]
+
+            last_move = self.env['account.move'].search(
+                domain,
+                order='id desc', 
+                limit=1
+                
+            )
+            return last_move if last_move else False
+
+    
+    def _get_last_sequence_month_before(self):
+        for rec in self:
+            today = fields.Date.today()
+            first_day_current_month = today.replace(day=1)
+            date_month_before_first_day = first_day_current_month - relativedelta(months=1)
+            if date_month_before_first_day.month == 2:
+                date_month_before = date_month_before_first_day.replace(day=28)
+                if date_month_before_first_day.year % 4 == 0 and (date_month_before_first_day.year % 100 != 0 or date_month_before_first_day.year % 400 == 0):
+                    date_month_before = date_month_before_first_day.replace(day=29)
+            elif date_month_before_first_day.month in [4, 6, 9, 11]:
+                date_month_before = date_month_before_first_day.replace(day=30)
+            else:
+                date_month_before = date_month_before_first_day.replace(day=31)
+
+            domain = [
+                ('journal_id', '=', rec.journal_id.id),
+                ('state', '=', 'posted'),
+                ('state', '!=', 'cancel'),
+                ('state', '!=', 'draft'),
+                ('date', '<=', date_month_before),
+                ('date', '>=', date_month_before_first_day),
+            ]
+
+            last_move = self.env['account.move'].search(
+                domain,
+                order='id asc',
+            )
+            return last_move if last_move else False
+
+          
 
 
     def action_post(self):
@@ -171,7 +266,63 @@ class ExtensionAccounting(models.Model):
                         zeros = zeros[:-3]
                     
                     new_sequence = f' {prefix}/{zeros}{correlative}'       
-                    rec.name = new_sequence         
+                    rec.name = new_sequence   
+
+            if rec.kral_get_sequences_reserved and rec.kral_reserved_sequences == False:
+                move_ids = rec._get_last_sequence_month_current()
+                if rec.kral_get_month_before:
+                    move_ids = rec._get_last_sequence_month_before()
+                
+                if move_ids:
+                    contador = 0
+                    account_empty = 0
+                    firts_move = move_ids[:1]
+                    last_move = rec._get_last_sequence_month_last()
+                    if firts_move.id != last_move.id:
+                        last_match = re.search(r'/0*(\d+)$', last_move.name)
+                        last_match_pivot = last_match.group(1) if last_match  else False
+                        ### format
+                        detect_format = re.match(r'(.+)/[^/]+$', firts_move.name)
+                        prefix = detect_format.group(1)
+
+                        match_first = firts_move.name
+                        regex_first = re.search(r'/0*(\d+)$', match_first)
+                        regex_first = regex_first.group(1)
+
+                        contador = int(regex_first)
+                        for move_id in move_ids:
+
+                            match = re.search(r'/0*(\d+)$', move_id.name)
+                            detect_zeros = re.search(r'/((0*)(\d+))$', move_id.name)
+                            correlative_pivot = match.group(1) if match  else False
+
+                            if last_match_pivot:
+                                if int(last_match_pivot) == int(correlative_pivot):
+                                    raise ValidationError(f'No hay reservas')
+
+                            if contador < int(correlative_pivot):
+                                account_empty = contador
+                                zeros = detect_zeros.group(2)
+
+                                contador_pivot = len(str(contador))
+                                zeros_len = len(zeros)
+
+                                if contador_pivot > 2:
+                                    zeros = zeros[:-1]
+                                if contador_pivot > 3:
+                                    zeros = zeros[:-2]
+                                if contador_pivot > 4:
+                                    zeros = zeros[:-3]
+                                
+                                contador_p = contador
+                    
+                                new_sequence = f' {prefix}/{zeros}{contador_p}'    
+                                rec.name = new_sequence
+                                break             
+
+                            contador += contador
+                    else:
+                        raise ValidationError(f'No hay reservas')
 
             return res
 
