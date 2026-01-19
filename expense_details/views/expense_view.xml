@@ -12,6 +12,7 @@
                     <field name="kral_is_partner"/>
                     <field name="kral_expense_partner_id" invisible="kral_is_partner"/>
                     <field name="kral_expense_partner_text" invisible="not kral_is_partner"/>
+                    <field name="kral_tag" />
                 </xpath>
             </field>  
         </record>
