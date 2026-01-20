@@ -5,6 +5,53 @@ from odoo.exceptions import ValidationError
 import re
 from dateutil.relativedelta import relativedelta
 
+
+class ExtesionAccountAccount(models.Model):
+    _inherit = 'account.account'
+
+    kral_payment_client = fields.Boolean(string='Cuenta de Pago de Cliente')
+    kral_payment_proveedor = fields.Boolean(string='Cuenta de Pago de Proveedor')
+
+
+class ExtensionAccountPayment(models.Model):
+    _inherit = 'account.payment'
+
+    kral_contra_account_id = fields.Many2one('account.account', string='Cuenta Contrapartida')
+
+    def action_post(self):
+        res = super().action_post()
+        for payment in self:
+            for line in payment.move_id.line_ids:
+                ### CHANGE ACCOUNT BASE ON CONTRA ACCOUNT
+                if line.account_id != payment.kral_account_id and payment.kral_contra_account_id:
+                    line.account_id = payment.kral_contra_account_id
+                ### CHANGE ACCOUNT BASE ON DEFAULT CONFIGURATION PAYMENT CLIENT
+                if not payment.kral_contra_account_id and payment.payment_type == 'inbound':
+                    if line.credit > 0:
+                        account_contra = self.env['account.account'].search([
+                            ('kral_payment_client', '=', True),
+                        ], limit=1)
+                        if account_contra:
+                            line.account_id = account_contra
+                    else:
+                        if payment.kral_account_id:
+                            line.account_id = payment.kral_account_id
+                ### CHANGE ACCOUNT BASE ON DEFAULT CONFIGURATION PAYMENT PROVEEDOR
+                if not payment.kral_contra_account_id and payment.payment_type == 'outbound':
+                    if line.debit > 0:
+                        account_contra = self.env['account.account'].search([
+                            ('kral_payment_proveedor', '=', True),
+                        ], limit=1)
+                        if account_contra:
+                            line.account_id = account_contra
+                    else:
+                        if payment.kral_account_id:
+                            line.account_id = payment.kral_account_id
+                
+        return res
+
+
+
 class ExtensionAccounting(models.Model):
     _inherit = 'account.move'
 

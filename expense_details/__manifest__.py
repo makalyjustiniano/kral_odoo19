@@ -14,6 +14,8 @@
         'security/ir.model.access.csv',
         'views/expense_view.xml',
         'views/account_move_view.xml',
+        'views/account_account_view.xml',
+        'views/account_payment_view.xml',
     ],
     "assets": {"web.assets_backend": [], "web.assets_common": []},
     "sequence": 1,
