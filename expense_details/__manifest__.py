@@ -11,6 +11,7 @@
     "website": "https://kral.com.bo",
     "depends": ['base', 'mail', 'hr_expense', 'product', 'stock', 'automatic_analytics'],
     "data": [
+        'security/ir.model.access.csv',
         'views/expense_view.xml',
         'views/account_move_view.xml',
     ],

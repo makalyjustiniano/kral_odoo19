@@ -199,6 +199,38 @@ class ExtensionAccounting(models.Model):
                 for move in self:
                     if move.state != 'posted':
                         continue
+                        
+                    if rec.expense_ids.kral_descount_lines:
+                        move.button_draft()
+                        for item in rec.expense_ids:
+                            if item.kral_descount_lines.kral_amount and item.kral_descount_lines.kral_expenses_id:
+                                move.write({
+                                    'line_ids': [
+                                        # Línea DEBE
+                                        (0, 0, {
+                                            'name': 'Descuento aplicado',
+                                            'account_id': item.kral_descount_lines.kral_expenses_id.categ_id.property_account_expense_categ_id.id,
+                                            'debit': item.kral_descount_lines.kral_amount,
+                                            'credit': 0.0,
+                                            'partner_id': rec.partner_id.id,
+                                            'currency_id': move.currency_id.id,
+                                        }),
+                                        # Línea HABER (contrapartida)
+                                        (0, 0, {
+                                            'name': 'Contrapartida descuento',
+                                            'account_id':  item.kral_descount_lines.kral_expenses_id.categ_id.property_account_expense_categ_id.id,
+                                            'debit': 0.0,
+                                            'credit': item.kral_descount_lines.kral_amount,
+                                            'partner_id': rec.partner_id.id,
+                                            'currency_id': move.currency_id.id,
+                                        }),
+                                    ]
+                                })
+                        
+                        move.action_post()
+
+                            
+
 
                     number_invoice = move.name or ''
                     match = re.search(r'/0*(\d+)$', number_invoice)
@@ -220,6 +252,8 @@ class ExtensionAccounting(models.Model):
                                 f"{line.expense_id.kral_expense_partner_text} - "
                                 f"{line.expense_id.kral_tag}"
                             )
+                
+                    
 
             if rec.kral_reserved_sequences and rec.kral_number_reserved > 0:
 
@@ -336,7 +370,15 @@ class ExtensionAccounting(models.Model):
                     else:
                         raise ValidationError(f'No hay reservas')
 
+
             return res
+
+class DescountExpenseList(models.Model):
+    _name = "descount.expense"
+
+    kral_hr_expense_id =  fields.Many2one('hr.expense',string="Expense Id", readonly=True)
+    kral_expenses_id = fields.Many2one('product.template', string="Gastos Services")
+    kral_amount = fields.Float(string="Monto")
 
 class ExpenseAdding(models.Model):
     _inherit = "hr.expense"
@@ -347,6 +389,10 @@ class ExpenseAdding(models.Model):
     kral_product_tmpl_id = fields.Many2one('product.template',related="product_id.product_tmpl_id", string='Plantilla de Producto')
     kral_distribution_analytic = fields.Many2one('account.analytic.account', related="kral_product_tmpl_id.kral_analytic_distribution_id", string='Analítico')
     kral_tag = fields.Text(string='Etiqueta', tracking=True)
+
+    kral_descount_lines = fields.One2many('descount.expense', 'kral_hr_expense_id', string="Lineas de descuentos")
+
+
 
     @api.onchange('kral_is_partner')
     def onchange_kral_is_partner(self): 

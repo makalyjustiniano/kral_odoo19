@@ -14,8 +14,25 @@
                     <field name="kral_expense_partner_text" invisible="not kral_is_partner"/>
                     <field name="kral_tag" />
                 </xpath>
-            </field>  
+                <xpath expr="//sheet" position="inside">
+                    <notebook>
+                        <page name="lines" string="Líneas">
+                        <group name="name" >
+                         <field name="kral_descount_lines" mode="list,kanban" nolabel="1"  class="oe_no_label">
+                                <list editable="bottom" default_order="id" nolabel="1">
+                                    <field name="kral_expenses_id" 
+                                    domain="[('can_be_expensed', '=', True),('type', '=', 'service')]"
+                                     />
+                                    <field name="kral_amount"  />
+                                </list>
+                            </field>
+                            
+                        </group>
+                           
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
         </record>
-
     </data>
 </odoo>
