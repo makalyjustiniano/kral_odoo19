@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+        <record id="view_account_account_form_inherit" model="ir.ui.view">
+            <field name="name">account.account.form.inherit</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Cuentas Por pagar/cobrar" name="kral_page_expense_details">
+                        <group>
+                            <field name="kral_payment_client" />
+                            <field name="kral_payment_proveedor" />
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
