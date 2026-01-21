@@ -11,7 +11,8 @@
     "website": "https://kral.com.bo",
     "depends": ['base', 'account', 'account_accountant'],
     "data": [
-        "security/ir.model.access.csv"
+        "security/ir.model.access.csv",
+        "views/report_financial_inherit.xml"
     ],
     'assets': {
         'web.assets_backend': [

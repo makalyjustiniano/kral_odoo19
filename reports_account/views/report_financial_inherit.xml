@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_reports.aged_receivable_report" model="account.report">
+         <field name="filter_show_draft" eval="True"/>
+        <field name="search_bar" eval="True"/>
+    </record>
+
+    <record id="account_reports.aged_payable_report" model="account.report">
+        <field name="filter_show_draft" eval="True"/>
+        <field name="search_bar" eval="True"/>
+    </record>
+</odoo>

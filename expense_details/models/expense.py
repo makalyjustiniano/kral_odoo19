@@ -276,8 +276,6 @@ class ExtensionAccounting(models.Model):
                         
                         move.action_post()
 
-                            
-
 
                     number_invoice = move.name or ''
                     match = re.search(r'/0*(\d+)$', number_invoice)
