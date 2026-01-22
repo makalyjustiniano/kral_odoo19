@@ -241,42 +241,78 @@ class ExtensionAccounting(models.Model):
             date_month_move = rec._get_last_sequence_used_move()
             first_sequence = rec._get_first_sequence_used()
             res = super().action_post()
-
+            ########### INICIO LOGICA DE GASTOS CON DESCUENTOS
             if rec.expense_ids:
                 for move in self:
                     if move.state != 'posted':
                         continue
-                        
-                    if rec.expense_ids.kral_descount_lines:
-                        move.button_draft()
-                        for item in rec.expense_ids:
-                            if item.kral_descount_lines.kral_amount and item.kral_descount_lines.kral_expenses_id:
-                                move.write({
-                                    'line_ids': [
-                                        # Línea DEBE
-                                        (0, 0, {
-                                            'name': 'Descuento aplicado',
-                                            'account_id': item.kral_descount_lines.kral_expenses_id.categ_id.property_account_expense_categ_id.id,
-                                            'debit': item.kral_descount_lines.kral_amount,
-                                            'credit': 0.0,
-                                            'partner_id': rec.partner_id.id,
-                                            'currency_id': move.currency_id.id,
-                                        }),
-                                        # Línea HABER (contrapartida)
-                                        (0, 0, {
-                                            'name': 'Contrapartida descuento',
-                                            'account_id':  item.kral_descount_lines.kral_expenses_id.categ_id.property_account_expense_categ_id.id,
-                                            'debit': 0.0,
-                                            'credit': item.kral_descount_lines.kral_amount,
-                                            'partner_id': rec.partner_id.id,
-                                            'currency_id': move.currency_id.id,
-                                        }),
-                                    ]
-                                })
-                        
-                        move.action_post()
 
+                  
+                    total_discount = sum(
+                        item.kral_descount_lines.kral_amount 
+                        for item in rec.expense_ids 
+                        if item.kral_descount_lines.kral_amount
+                    )
+                    
+                    if total_discount == 0:
+                        continue
 
+                    move.button_draft()
+                    
+                    # 2. Obtener la cuenta contable para el descuento
+                    first_item = rec.expense_ids[0] 
+                    account_descuento = first_item.kral_descount_lines.kral_expenses_id.property_account_expense_id
+                    if not account_descuento:
+                        account_descuento = first_item.kral_descount_lines.kral_expenses_id.categ_id.property_account_expense_categ_id
+
+                  
+                    payable_line = move.line_ids.filtered(lambda l: l.account_id.kral_payment_proveedor)
+                    
+                    if not payable_line:
+                        payable_line = move.line_ids.filtered(lambda l: l.account_id.account_type == 'liability_payable')
+                    
+                    if not payable_line:
+                        continue 
+
+                    payable_line = payable_line[0]
+
+                    commands = []
+
+                
+                    original_credit = payable_line.credit
+                    new_credit_balance = original_credit - total_discount
+
+                    if new_credit_balance >= 0:
+                    
+                        commands.append((1, payable_line.id, {
+                            'credit': new_credit_balance,
+                            'debit': 0.0,
+                        }))
+                    else:
+                       
+                        commands.append((1, payable_line.id, {
+                            'credit': 0.0,
+                            'debit': abs(new_credit_balance),
+                        }))
+
+                    
+                    commands.append((0, 0, {
+                        'name': 'Descuento / Servicio Aplicado',
+                        'account_id': account_descuento.id,
+                        'debit': 0.0,
+                        'credit': total_discount, # Aquí van los 50.00
+                        'partner_id': rec.partner_id.id,
+                        'currency_id': move.currency_id.id,
+                        'date': move.date,
+                        'date_maturity': False 
+                    }))
+
+                    move.with_context(check_move_validity=False).write({
+                        'line_ids': commands
+                    })
+                    
+                  
+                    ####################### FIN LOGICA GASTOS CON DESCUENTOS
                     number_invoice = move.name or ''
                     match = re.search(r'/0*(\d+)$', number_invoice)
                     correlativo = 'F.' + match.group(1) if match  else 'F.' + number_invoice
