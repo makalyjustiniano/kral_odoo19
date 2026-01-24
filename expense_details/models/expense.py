@@ -265,6 +265,19 @@ class ExtensionAccounting(models.Model):
                                 account_descuento = first_item.kral_expenses_id.categ_id.property_account_expense_categ_id
 
                         
+                            # 3. Calcular montos con impuestos
+                            taxes = descount_line.kral_tax_ids.compute_all(
+                                total_discount,
+                                currency=rec.currency_id,
+                                quantity=1.0,
+                                product=descount_line.kral_expenses_id,
+                                partner=rec.partner_id
+                            )
+
+                            amount_total_deduction = taxes['total_included']
+                            amount_base = taxes['total_excluded']
+
+                        
                             payable_line = rec.line_ids.filtered(lambda l: l.account_id.kral_payment_proveedor)
                             
                             if not payable_line:
@@ -279,7 +292,7 @@ class ExtensionAccounting(models.Model):
 
                         
                             original_credit = payable_line.credit
-                            new_credit_balance = original_credit - total_discount
+                            new_credit_balance = original_credit - amount_total_deduction
 
                             if new_credit_balance >= 0:
                             
@@ -294,18 +307,45 @@ class ExtensionAccounting(models.Model):
                                     'debit': abs(new_credit_balance),
                                 }))
 
-                            
+                            # Linea Base (Gasto/Ingreso negativo)
                             commands.append((0, 0, {
                                 'name': 'Descuento / Servicio Aplicado',
                                 'account_id': account_descuento.id,
+                                'product_id': descount_line.kral_expenses_id.id,
                                 'debit': 0.0,
-                                'price_unit': - total_discount,   
-                                'credit': total_discount, # Aquí van los 50.00
+                                'price_unit': - amount_base,   
+                                'credit': amount_base,
                                 'partner_id': rec.partner_id.id,
                                 'currency_id': rec.currency_id.id,
                                 'date': rec.date,
+                                'tax_ids': [(6, 0, descount_line.kral_tax_ids.ids)],
                                 'date_maturity': False 
                             }))
+
+                            # Lineas de Impuesto
+                            for tax_res in taxes['taxes']:
+                                tax = self.env['account.tax'].browse(tax_res['id'])
+                                account_tax_id = tax_res['account_id'] or tax.invoice_repartition_line_ids.filtered(lambda x: x.repartition_type == 'tax').account_id.id
+                                
+                                # Si es devolución, buscamos la cuenta de reembolso si existe, o usamos la normal pero a la inversa (Crédito)
+                                # Al ser un descuento en factura de proveedor, disminuye el Gasto y el IVA soportado.
+                                # Por lo tanto, el IVA va al HABER (Credit).
+                                # Odoo compute_all devuelve 'amount' positivo si es base positiva.
+                                
+                                tax_amount = tax_res['amount']
+                                
+                                commands.append((0, 0, {
+                                    'name': tax_res['name'],
+                                    'account_id': account_tax_id,
+                                    'debit': 0.0,
+                                    'credit': tax_amount,
+                                    'currency_id': rec.currency_id.id,
+                                    'date': rec.date,
+                                    'tax_base_amount': amount_base,
+                                    'tax_repartition_line_id': tax_res['tax_repartition_line_id'],
+                                    'display_type': 'tax',
+                                }))
+
 
                             rec.with_context(check_move_validity=False).write({
                                 'line_ids': commands
@@ -462,6 +502,7 @@ class DescountExpenseList(models.Model):
     kral_hr_expense_id =  fields.Many2one('hr.expense',string="Expense Id", readonly=True)
     kral_expenses_id = fields.Many2one('product.template', string="Gastos Services")
     kral_amount = fields.Float(string="Monto")
+    kral_tax_ids = fields.Many2many('account.tax', string="Impuestos", related='kral_hr_expense_id.tax_ids', readonly=True)
 
 class ExpenseAdding(models.Model):
     _inherit = "hr.expense"
