@@ -11,7 +11,7 @@ from dateutil.relativedelta import relativedelta
 from itertools import chain
 
 from odoo import models, fields, _
-
+import re
 
 class AccountAgedPartnerBalanceReportHandler(models.AbstractModel):
     _name = 'account.aged.partner.balance.report.handler'
@@ -121,7 +121,23 @@ class AccountAgedPartnerBalanceReportHandler(models.AbstractModel):
                 ## TRAER EL PAGO SU MONTO
                 balance = self.env['account.payment'].browse(query_res['payment_id']).mapped('amount')
                 move = self.env['account.move'].browse(query_res['move_id']).mapped('amount_total')
-            
+                name_tag = query_res['name_tag'][0] if len(query_res['name_tag']) == 1 else None
+                ref_tag = False
+
+                ref_tag =  self.env['account.move'].browse(query_res['move_id']).mapped('ref')
+                pivot_name = self.env['account.move'].browse(query_res['move_id']).mapped('name')
+
+                if not ref_tag and pivot_name and name_tag:
+                    name_tag = f' {pivot_name} | {name_tag}'
+                if not name_tag and pivot_name and ref_tag:
+                    name_tag = f' {pivot_name} | {ref_tag[0]}'
+                if not name_tag and pivot_name and not ref_tag:
+                    name_tag = pivot_name
+                if name_tag and ref_tag and pivot_name:
+                    name_tag = f' {pivot_name} | {ref_tag[0]} | {name_tag}'
+                    name_tag = re.sub(r"[\[\]']", '', name_tag)                    
+                
+
                 rslt.update({
                     'invoice_date': query_res['invoice_date'][0] if len(query_res['invoice_date']) == 1 else None,
                     'due_date': query_res['due_date'][0] if len(query_res['due_date']) == 1 else None,
@@ -135,7 +151,7 @@ class AccountAgedPartnerBalanceReportHandler(models.AbstractModel):
                     #'account_id': query_res['account_id'][0] if len(query_res['account_id']) == 1 else None,
                     'total': None,
                     'has_sublines': True,
-
+                    'name_tag': name_tag,
                     # Needed by the custom_unfold_all_batch_data_generator, to speed-up unfold_all
                     'partner_id': query_res['partner_id'][0] if query_res['partner_id'] else None,
                 })
@@ -148,6 +164,7 @@ class AccountAgedPartnerBalanceReportHandler(models.AbstractModel):
                     'currency': None,
                     'account_name': None,
                     'account_code2': None,
+                    'name_tag': None,
                     #'account_id': None,
                     'move_id': None,
                     'balance': None,
@@ -200,6 +217,7 @@ class AccountAgedPartnerBalanceReportHandler(models.AbstractModel):
 
         tail_query = report._get_engine_query_tail(offset, limit)
         move_id = None
+        name_tag = None
         query = SQL(
             """
             WITH period_table(date_start, date_stop, period_index) AS (%(period_table)s)
@@ -213,6 +231,7 @@ class AccountAgedPartnerBalanceReportHandler(models.AbstractModel):
                 ) AS amount_currency,
                 ARRAY_AGG(DISTINCT account_move_line.partner_id) AS partner_id,
                 ARRAY_AGG(DISTINCT account_move_line.move_id) AS move_id,
+                ARRAY_AGG(DISTINCT account_move_line.name) AS name_tag,
                 ARRAY_AGG(account_move_line.payment_id) AS payment_id,
                 ARRAY_AGG(DISTINCT account_move_line.invoice_date) AS invoice_date,
                 ARRAY_AGG(DISTINCT COALESCE(account_move_line.%(aging_date_field)s, account_move_line.date)) AS report_date,
@@ -274,6 +293,7 @@ class AccountAgedPartnerBalanceReportHandler(models.AbstractModel):
             %(tail_query)s
             """,
             move_id=move_id,
+            name_tag=name_tag,
             account_code=account_code,
             account_code2=account_code2,
             period_table=period_table,
