@@ -156,21 +156,40 @@ class AccountAgedPartnerBalanceReportHandler(models.AbstractModel):
                     'partner_id': query_res['partner_id'][0] if query_res['partner_id'] else None,
                 })
             else:
-                rslt.update({
-                    'invoice_date': None,
-                    'due_date': None,
-                    'amount_currency': None,
-                    'currency_id': None,
-                    'currency': None,
-                    'account_name': None,
-                    'account_code2': None,
-                    'name_tag': None,
-                    #'account_id': None,
-                    'move_id': None,
-                    'balance': None,
-                    'total': sum(rslt[f'period{i}'] for i in range(len(periods))),
-                    'has_sublines': True,
-                })
+                if current_groupby == 'partner_id':
+                    importe = self.env['account.move'].browse(query_res['move_id']).mapped('amount_total')
+                  
+                    rslt.update({
+                        'invoice_date': None,
+                        'due_date': None,
+                        'amount_currency': None,
+                        'currency_id': None,
+                        'currency': None,
+                        'account_name': None,
+                        'account_code2': None,
+                        'name_tag': None,
+                        'balance': importe[0] if len(importe) >= 1 else None,
+                        #'account_id': None,
+                        'move_id': importe[0] if len(importe) >= 1 else None,
+                        'total': sum(rslt[f'period{i}'] for i in range(len(periods))),
+                        'has_sublines': True,
+                    })
+                else:
+                    rslt.update({
+                        'invoice_date': None,
+                        'due_date': None,
+                        'amount_currency': None,
+                        'currency_id': None,
+                        'currency': None,
+                        'account_name': None,
+                        'account_code2': None,
+                        'name_tag': None,
+                        #'account_id': None,
+                        'move_id': None,
+                        'balance': None,
+                        'total': sum(rslt[f'period{i}'] for i in range(len(periods))),
+                        'has_sublines': True,
+                    })
 
             return rslt
 
