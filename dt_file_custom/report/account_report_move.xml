@@ -94,7 +94,33 @@
             th, td{
             border: none;
             }
+            th, td {
+            border: none;
+            padding: 5px; /* Unificar padding */
+        }
+        /* Evita que las filas se partan a la mitad entre páginas */
+        tr {
+            page-break-inside: avoid !important;
+        }
+        /* Asegura que la tabla respete los márgenes */
+        .table {
+            width: 100%;
+            margin-bottom: 20px;
+            background-color: transparent;
+            border-collapse: collapse; /* Importante para evitar lineas dobles */
+        }
+        /* Solución para el encabezado encaramado: 
+           A veces wkhtmltopdf repite el thead y lo superpone. 
+           display: table-row-group evita que se repita el header en cada pagina
+           si prefieres que NO se repita. Si quieres que se repita, usa table-header-group
+           pero asegúrate de tener margin-top suficiente en el body.
+        */
+        thead {
+            display: table-header-group; 
+        }
+            
         </style>
+        
         <!--   <t t-call="web.html_container">
             <t t-call="web.external_layout"> -->
         <div class="page">
@@ -215,7 +241,7 @@
                     </div>
                 </div>
                 <div>
-                    <table class="table table-condensed" style="margin-top: 20px;border: none;">
+                    <table class="table table-condensed" style="border: none;">
                         <thead style="border: none;">
                             <tr style="border: none; font-size: 12px;">
                                 <th style="text-align: left;">Cuenta</th>
@@ -227,12 +253,12 @@
                                 <th style="text-align: right;">Haber (Usd)</th>
                             </tr>
                         </thead>
-                        <tbody style="border: none;">
+                        <tbody style="border: none; ">
                             <tr t-foreach="o.line_ids"
                                 t-as="l"
-                                style="border: none; font-size: 12px;">
+                                style="border: none; font-size: 12px; ">
                                 <td
-                                    style="width: 8%; vertical-align: top; text-align: left; padding:5px;">
+                                    style="width: 8%; vertical-align: top; text-align: left; padding:5px; ">
                                     <span t-field="l.account_id.code" />
                                 </td>
                                 <td
