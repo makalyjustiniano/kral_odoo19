@@ -375,7 +375,8 @@ class ExtensionAccounting(models.Model):
                                 f"{line.expense_id.kral_tag}"
                             )
                 
-                    
+                res = super().action_post()
+       
 
             if rec.kral_reserved_sequences and rec.kral_number_reserved > 0:
 
@@ -492,7 +493,6 @@ class ExtensionAccounting(models.Model):
                     else:
                         raise ValidationError(f'No hay reservas')
 
-            res = super().action_post()
 
             return res
 
