@@ -350,7 +350,6 @@ class ExtensionAccounting(models.Model):
                             rec.with_context(check_move_validity=False).write({
                                 'line_ids': commands
                             })
-                            #rec.action_post()
                     
                   
                     ####################### FIN LOGICA GASTOS CON DESCUENTOS
@@ -493,6 +492,7 @@ class ExtensionAccounting(models.Model):
                     else:
                         raise ValidationError(f'No hay reservas')
 
+            res = super().action_post()
 
             return res
 
