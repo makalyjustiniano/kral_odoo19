@@ -140,7 +140,7 @@ class AccountAgedPartnerBalanceReportHandler(models.AbstractModel):
                 move_id = query_res['move_id'][0] if len(query_res['move_id']) == 1 else None
                 move_line = self.env['account.move.line'].search([('move_id', '=', move_id)])
                 for line in move_line:
-                    if line.name:
+                    if line.name and line.account_id.account_type in ['liability_payable', 'asset_receivable']:
                         ref_tag = line.name
                 
                 name_tag = re.sub(r'/', '|', ref_tag)

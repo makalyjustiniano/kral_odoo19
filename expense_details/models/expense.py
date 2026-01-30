@@ -386,9 +386,29 @@ class ExtensionAccounting(models.Model):
                                         f"{tags} / "
                                         f"{partners}"
                                     )
-                               
-                
                 res = super().action_post()
+            
+            ### INIT TAGS IN liability_payable AND asset_receivable
+            for line in rec.line_ids:
+                if line.account_id.account_type in ['liability_payable', 'asset_receivable']:
+                    names = ''
+                    partners = ''
+                    tags = ''
+                    ## get product_id from move_id.invoice_line_ids
+                    if line.move_id.invoice_line_ids:
+                        for invoice_line_id in line.move_id.invoice_line_ids:
+                            if invoice_line_id.product_id:
+                                names = invoice_line_id.product_id.name
+                    if line.move_id.partner_id:
+                        partners = line.move_id.partner_id.name
+                    if line.move_id.ref:
+                        tags = line.move_id.ref                                       
+                    line.name = (
+                        f"{names} / "
+                        f"{tags} / "
+                        f"{partners}"
+                    )      
+            ### END INIT TAGS IN liability_payable AND asset_receivable
        
 
             if rec.kral_reserved_sequences and rec.kral_number_reserved > 0:
@@ -436,7 +456,8 @@ class ExtensionAccounting(models.Model):
                         zeros = zeros[:-3]
                     
                     new_sequence = f' {prefix}/{zeros}{correlative}'       
-                    rec.name = new_sequence   
+                    rec.name = new_sequence  
+
 
             if rec.kral_get_sequences_reserved and rec.kral_reserved_sequences == False:
                 move_ids = rec._get_last_sequence_month_current()
@@ -501,7 +522,7 @@ class ExtensionAccounting(models.Model):
                     
                                 new_sequence = f' {prefix}/{zeros}{contador_p}'    
                                 rec.name = new_sequence
-                                break             
+                                            
 
                             contador += 1
                     else:
