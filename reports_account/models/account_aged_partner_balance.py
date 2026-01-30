@@ -143,8 +143,8 @@ class AccountAgedPartnerBalanceReportHandler(models.AbstractModel):
                     if line.name and line.account_id.account_type in ['liability_payable', 'asset_receivable']:
                         ref_tag = line.name
                 
-                name_tag = re.sub(r'/', '|', ref_tag)
-
+                #name_tag = re.sub(r'/', '|', ref_tag)
+                name_tag = ref_tag
                 
 
                 rslt.update({

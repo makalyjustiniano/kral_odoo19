@@ -382,8 +382,8 @@ class ExtensionAccounting(models.Model):
                                         tags = re.sub(r'- $', '', tags)
                                             
                                     line.name = (
-                                        f"{names} / "
-                                        f"{tags} / "
+                                        f"{names} | "
+                                        f"{tags} | "
                                         f"{partners}"
                                     )
                 res = super().action_post()
@@ -404,8 +404,8 @@ class ExtensionAccounting(models.Model):
                     if line.move_id.ref:
                         tags = line.move_id.ref                                       
                     line.name = (
-                        f"{names} / "
-                        f"{tags} / "
+                        f"{names} | "
+                        f"{tags} | "
                         f"{partners}"
                     )      
             ### END INIT TAGS IN liability_payable AND asset_receivable
