@@ -383,8 +383,8 @@ class ExtensionAccounting(models.Model):
                                             
                                     line.name = (
                                         f"{names} / "
-                                        f"{partners} / "
-                                        f"{tags}"
+                                        f"{tags} / "
+                                        f"{partners}"
                                     )
                                
                 

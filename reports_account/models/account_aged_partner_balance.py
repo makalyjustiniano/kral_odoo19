@@ -124,18 +124,27 @@ class AccountAgedPartnerBalanceReportHandler(models.AbstractModel):
                 name_tag = query_res['name_tag'][0] if len(query_res['name_tag']) == 1 else None
                 ref_tag = False
 
-                ref_tag =  self.env['account.move'].browse(query_res['move_id']).mapped('ref')
+                #ref_tag =  self.env['account.move'].browse(query_res['move_id']).mapped('ref')
                 pivot_name = self.env['account.move'].browse(query_res['move_id']).mapped('name')
-
+                """
                 if not ref_tag and pivot_name and name_tag:
                     name_tag = f' {pivot_name} | {name_tag}'
-                if not name_tag and pivot_name and ref_tag:
+                elif not name_tag and pivot_name and ref_tag:
                     name_tag = f' {pivot_name} | {ref_tag[0]}'
-                if not name_tag and pivot_name and not ref_tag:
+                elif not name_tag and pivot_name and not ref_tag:
                     name_tag = pivot_name
-                if name_tag and ref_tag and pivot_name:
+                elif name_tag and ref_tag and pivot_name:
                     name_tag = f' {pivot_name} | {ref_tag[0]} | {name_tag}'
-                    name_tag = re.sub(r"[\[\]']", '', name_tag)                    
+                """
+                ### recorrer account.move.line
+                move_id = query_res['move_id'][0] if len(query_res['move_id']) == 1 else None
+                move_line = self.env['account.move.line'].search([('move_id', '=', move_id)])
+                for line in move_line:
+                    if line.name:
+                        ref_tag = line.name
+                
+                name_tag = re.sub(r'/', '|', ref_tag)
+
                 
 
                 rslt.update({
