@@ -356,24 +356,37 @@ class ExtensionAccounting(models.Model):
 
                     number_invoice = rec.name or ''
                     match = re.search(r'/0*(\d+)$', number_invoice)
-                    correlativo = 'F.' + match.group(1) if match  else 'F.' + number_invoice
+                    correlativo = match.group(1) if match  else number_invoice
 
                     for line in rec.line_ids:
-                        if not line.expense_id:
-                            continue
-
-                        if not line.expense_id.kral_is_partner:
-                            line.name = (
-                                f"{correlativo} - "
-                                f"{line.expense_id.kral_expense_partner_id.name} - "
-                                f"{line.expense_id.kral_tag}"
-                            )
-                        else:
-                            line.name = (
-                                f"{correlativo} - "
-                                f"{line.expense_id.kral_expense_partner_text} - "
-                                f"{line.expense_id.kral_tag}"
-                            )
+                        #if not line.expense_id:
+                        #    continue
+                        
+                        if line.move_id.expense_ids:
+                            if line.account_id.account_type in ['liability_payable', 'asset_receivable']:
+                                names = ''
+                                partners = ''
+                                tags = ''
+                                if not line.expense_id.kral_is_partner:
+                                    if rec.expense_ids:
+                                        for expense in rec.expense_ids:
+                                            names = names + expense.name + ' - '
+                                            if expense.kral_expense_partner_id:
+                                                partners = partners + expense.kral_expense_partner_id.name + ' - '
+                                            if expense.kral_expense_partner_text:
+                                                partners = partners + expense.kral_expense_partner_text + ' - '
+                                            if expense.kral_tag:
+                                                tags = tags + expense.kral_tag + ' - '
+                                        names = re.sub(r'- $', '', names)
+                                        partners = re.sub(r'- $', '', partners)
+                                        tags = re.sub(r'- $', '', tags)
+                                            
+                                    line.name = (
+                                        f"{names} / "
+                                        f"{partners} / "
+                                        f"{tags}"
+                                    )
+                               
                 
                 res = super().action_post()
        
@@ -470,6 +483,7 @@ class ExtensionAccounting(models.Model):
                                     raise ValidationError(f'No hay reservas')
 
                             if contador < int(correlative_pivot):
+                                pass
                                 account_empty = contador
                                 zeros = detect_zeros.group(2)
 
